@@ -1,0 +1,6 @@
+{
+  "name": "مزارع الخفني",
+  "description": "موقع ويب احترافي ومتجاوب لمتجر مزارع وجزارة الخفني لتقديم أجود أنواع اللحوم الطازجة، مصنعات اللحوم، الدواجن، ومنتجات الألبان الطازجة من المزرعة إلى منزلك.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

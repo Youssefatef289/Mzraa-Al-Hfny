@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Cairo", "Tajawal", system-ui, -apple-system, sans-serif;
+  --font-display: "Tajawal", "Cairo", system-ui, sans-serif;
+  
+  /* Styling Palette for Editorial Aesthetic (Sky Navy, Sky Light, and Crisp Accents) */
+  --color-brand-light: #f0f9ff; /* sky-50 */
+  --color-brand-medium: #0c4a6e; /* sky-900 */
+  --color-brand-hover: #075985; /* sky-800 */
+  --color-brand-dark: #082f49; /* sky-950 */
+  --color-brand-accent: #0284c7; /* sky-600 */
+  --color-brand-gold: #f59e0b; /* amber-500 */
+}
+
+html {
+  scroll-behavior: smooth;
+  direction: rtl;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #f8fafc;
+  color: #1e293b;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
