@@ -413,7 +413,7 @@ export default function App() {
       </AnimatePresence>
 
       {/* Mobile App-like Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md border-t border-slate-150 shadow-[0_-4px_20px_-5px_rgba(0,0,0,0.08)]">
+      <nav className={`md:hidden fixed bottom-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md border-t border-slate-150 shadow-[0_-4px_20px_-5px_rgba(0,0,0,0.08)] ${isCartOpen ? 'hidden' : ''}`}>
         <div className="grid grid-cols-4 items-center">
           <button
             type="button"

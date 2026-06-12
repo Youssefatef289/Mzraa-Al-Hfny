@@ -149,7 +149,7 @@ export default function CartDrawer({
             animate={{ opacity: 0.5 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black z-50 cursor-pointer"
+            className="fixed inset-0 bg-black z-[60] cursor-pointer"
           />
 
           {/* Drawer Body Panel */}
@@ -158,7 +158,7 @@ export default function CartDrawer({
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed top-0 right-0 h-full w-full sm:max-w-md bg-white shadow-2xl z-50 flex flex-col focus:outline-none"
+            className="fixed top-0 right-0 h-full w-full sm:max-w-md bg-white shadow-2xl z-[70] flex flex-col focus:outline-none"
           >
             {/* Drawer Header */}
             <div className="p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
