@@ -181,7 +181,7 @@ export default function App() {
           <div className="pt-24 sm:pt-28">
             {/* Page banner */}
             <div className="bg-brand-dark text-white py-12 text-center px-4">
-              <h1 className="text-3xl sm:text-4xl font-black mb-3">كل منتجات مزارع الخفني</h1>
+              <h1 className="text-3xl sm:text-4xl font-black mb-3">كل منتجات مزارع الحفني</h1>
               <p className="text-sm text-sky-200 max-w-2xl mx-auto leading-relaxed">
                 تصفح التشكيلة الكاملة من اللحوم البلدية والدواجن والمصنعات ومنتجات الألبان والحلويات الطازجة، واطلب ما تريد بسهولة.
               </p>
@@ -214,16 +214,16 @@ export default function App() {
                 <div className="w-16 h-16 rounded-2xl bg-white p-1.5 shadow-lg flex items-center justify-center shrink-0">
                   <img
                     src={encodeURI('/images/Logo tab.jpg')}
-                    alt="شعار مزارع الخفني"
+                    alt="شعار مزارع الحفني"
                     className="w-full h-full object-contain rounded-xl"
                   />
                 </div>
                 <span className="text-xl font-black text-white">
-                  مزارع ال خفني 
+                  مزارع الحفني
                 </span>
               </div>
               <p className="text-xs text-slate-400 leading-relaxed font-medium">
-                مشروع مزارع وجزارة الخفني هو ثمرة أكثر من خمسة عشر عاماً من الشغف والعمل الجاد في تقديم لحوم بلدية، دواجن، وألبان نقية طازجة من مزارعنا الصديقة للبيئة في بني سويف مباشرة لبيوتكم العامرة.
+                مشروع مزارع وجزارة الحفني هو ثمرة أكثر من خمسة عشر عاماً من الشغف والعمل الجاد في تقديم لحوم بلدية، دواجن، وألبان نقية طازجة من مزارعنا الصديقة للبيئة في بني سويف مباشرة لبيوتكم العامرة.
               </p>
               
               {/* Extra badges for Egyptian local pride */}
@@ -322,7 +322,7 @@ export default function App() {
 
           {/* Copyright Divider & SEO metadata lines */}
           <div className="border-t border-slate-900 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-bold text-slate-500">
-            <p>جميع الحقوق محفوظة © {new Date().getFullYear()} لمزارع وجزارة الخفني.</p>
+            <p>جميع الحقوق محفوظة © {new Date().getFullYear()} لمزارع وجزارة الحفني.</p>
             <p className="text-[11px] text-slate-500">
               تم التصميم والتطوير بواسطة{' '}
               <a
@@ -352,7 +352,7 @@ export default function App() {
       <a
         id="whatsapp-float-btn"
         href={`https://wa.me/${FARM_INFO.whatsapp}?text=${encodeURIComponent(
-          'السلام عليكم مزارع الخفني، أرغب في الاستفسار عن عروض اللحوم والمنتجات المتوفرة حالياً للتوصيل.'
+          'السلام عليكم مزارع الحفني، أرغب في الاستفسار عن عروض اللحوم والمنتجات المتوفرة حالياً للتوصيل.'
         )}`}
         target="_blank"
         rel="noopener noreferrer"

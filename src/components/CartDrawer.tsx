@@ -64,7 +64,7 @@ export default function CartDrawer({
 
   // Build the WhatsApp order message text
   const buildWhatsAppMessage = (invoiceId: string) => {
-    let messageText = `*طلب جديد من مزارع الخفني*\n`;
+    let messageText = `*طلب جديد من مزارع الحفني*\n`;
     messageText += `------------------------------------\n`;
     messageText += `*رقم الفاتورة:* #${invoiceId}\n`;
     messageText += `*الاسم:* ${formData.fullName}\n`;
@@ -93,7 +93,7 @@ export default function CartDrawer({
     messageText += `------------------------------------\n`;
     messageText += `💵 *إجمالي الحساب:* ${totalAmount} ج.م\n`;
     messageText += `------------------------------------\n`;
-    messageText += `شكراً لكم مزارع الخفني على الخدمة المتميزة! 💚`;
+    messageText += `شكراً لكم مزارع الحفني على الخدمة المتميزة! 💚`;
 
     return messageText;
   };

@@ -51,7 +51,7 @@ export default function Features() {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h4 className="text-brand-medium font-extrabold text-sm tracking-widest uppercase mb-3">لماذا تختارنا؟</h4>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-dark leading-tight">
-            مميزات مزارع الخفني التي تجعلنا الخيار الأول لبيتك
+            مميزات مزارع الحفني التي تجعلنا الخيار الأول لبيتك
           </h2>
           <p className="text-sm sm:text-base text-slate-500 mt-4 leading-relaxed">
             نحن لا نبيع اللحوم والمنتجات فحسب، بل نقدم التزاماً تاماً بالصحة والنظافة وجودة الغذاء الذي نقدمه لأسرنا وأسركم.

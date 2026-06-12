@@ -46,7 +46,7 @@ export default function ContactSection() {
             نحن هنا لخدمتك والإجابة على استفساراتك
           </h2>
           <p className="text-sm text-slate-500 mt-4 leading-relaxed">
-            تفخر عائلة مزارع الخفني بالتواصل المباشر معكم لتلبية متطلبات بيوتكم ومناسباتكم الكبيرة في أي وقت.
+            تفخر عائلة مزارع الحفني بالتواصل المباشر معكم لتلبية متطلبات بيوتكم ومناسباتكم الكبيرة في أي وقت.
           </p>
         </div>
 
@@ -90,7 +90,7 @@ export default function ContactSection() {
                 <div>
                   <h4 className="font-extrabold text-brand-dark text-sm mb-1">البريد وصفحتنا على فيسبوك</h4>
                   <p className="text-xs text-slate-650 leading-normal font-bold" dir="ltr">{FARM_INFO.email}</p>
-                  <a href={FARM_INFO.facebook} target="_blank" rel="noopener noreferrer" className="text-xs text-brand-medium hover:text-brand-hover leading-normal font-bold block transition-colors">صفحة الخفني على فيسبوك ←</a>
+                  <a href={FARM_INFO.facebook} target="_blank" rel="noopener noreferrer" className="text-xs text-brand-medium hover:text-brand-hover leading-normal font-bold block transition-colors">صفحة الحفني على فيسبوك ←</a>
                 </div>
               </div>
 
@@ -121,7 +121,7 @@ export default function ContactSection() {
                   <MapPin className="w-6 h-6 text-brand-medium" />
                 </div>
                 
-                <h4 className="font-black text-brand-dark text-xs z-20 mb-1">موقع مزارع الخفني</h4>
+                <h4 className="font-black text-brand-dark text-xs z-20 mb-1">موقع مزارع الحفني</h4>
                 <p className="text-[10px] text-slate-500 z-20 mb-3 font-semibold">{FARM_INFO.city}</p>
                 
                 <a
@@ -218,7 +218,7 @@ export default function ContactSection() {
                     <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
                     <div>
                       <p className="text-xs font-bold">تم إرسال رسالتك بنجاح!</p>
-                      <p className="text-[10px] text-emerald-650 font-medium">سيقوم فريق مبيعات مزارع الخفني بالاتصال بك قريباً.</p>
+                      <p className="text-[10px] text-emerald-650 font-medium">سيقوم فريق مبيعات مزارع الحفني بالاتصال بك قريباً.</p>
                     </div>
                   </motion.div>
                 )}

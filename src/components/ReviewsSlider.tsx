@@ -49,7 +49,7 @@ export default function ReviewsSlider() {
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h4 className="text-brand-medium font-extrabold text-sm tracking-widest uppercase mb-3">ثقة عملائنا</h4>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-dark leading-tight">
-            ماذا يقولون عن منتجات مزارع الخفني؟
+            ماذا يقولون عن منتجات مزارع الحفني؟
           </h2>
           <p className="text-sm text-slate-500 mt-4 leading-relaxed">
             نسعد ونفتخر بخدمة وثقة آلاف العائلات المصرية التي تشاركنا تجاربها الإيجابية يومياً.

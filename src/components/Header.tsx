@@ -59,13 +59,13 @@ export default function Header({ cartCount, onOpenCart, onNavigate, solid = fals
             >
               <img
                 src="/images/logo.png"
-                alt="شعار مزارع الخفني"
+                alt="شعار مزارع الحفني"
                 className="w-full h-full object-contain p-1"
               />
             </div>
             <div className="flex flex-col">
               <span className={`font-black text-xl tracking-wide transition-colors duration-300 ${isScrolled ? 'text-brand-dark' : 'text-white'}`}>
-                مزارع ال خفني
+                مزارع الحفني
               </span>
               <span className={`text-[10px] font-medium transition-colors duration-300 ${isScrolled ? 'text-brand-medium' : 'text-sky-200'}`}>
                 جزارة وألبان ودواجن طازجة

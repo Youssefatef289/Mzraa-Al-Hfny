@@ -9,7 +9,7 @@ export default function Hero() {
       <div className="absolute inset-0 z-0">
         <img
           src="/src/assets/images/hero_farms_banner_1781226629299.jpg"
-          alt="مزارع وجزارة الخفني"
+          alt="مزارع وجزارة الحفني"
           className="w-full h-full object-cover object-center scale-105"
           referrerPolicy="no-referrer"
         />
@@ -39,7 +39,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] text-white mb-6"
           >
-            جودة مزارع الخفني<br />
+            جودة مزارع الحفني<br />
             <span className="text-sky-300 italic font-medium text-4xl sm:text-5xl lg:text-6xl pb-2 block">أجود أنواع اللحوم الطازجة</span>
           </motion.h1>
 
