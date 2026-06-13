@@ -8,7 +8,7 @@ export default function Hero() {
       {/* Background Image Container */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/src/assets/images/hero_farms_banner_1781226629299.jpg"
+          src="/images/hero.jpg"
           alt="مزارع وجزارة الحفني"
           className="w-full h-full object-cover object-center scale-105"
           referrerPolicy="no-referrer"

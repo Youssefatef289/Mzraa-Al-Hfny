@@ -40,7 +40,7 @@ export const PRODUCTS: Product[] = [
     price: 480, unit: 'كيلو جرام', image: `${IMG}/قسم اللحوم/سمانه 480م.ج.png`, category: 'meat', rating: 4.7, isAvailable: true,
   },
   {
-    id: 'meat-8', name: 'سن (موزة بقري)', description: 'لحم السن البقري الطري الغني بالجيلاتين الطبيعي، مثالي للفتة والطواجن.',
+    id: 'meat-8', name: 'سن', description: 'لحم السن البقري الطري الغني بالجيلاتين الطبيعي، مثالي للفتة والطواجن.',
     price: 450, unit: 'كيلو جرام', image: `${IMG}/قسم اللحوم/سن 450 م.ج.png`, category: 'meat', rating: 4.8, isAvailable: true,
   },
   {
