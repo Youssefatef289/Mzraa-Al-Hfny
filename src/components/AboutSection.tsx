@@ -57,7 +57,7 @@ export default function AboutSection() {
           <div className="lg:col-span-7 text-right">
             <h4 className="text-brand-medium font-extrabold text-sm tracking-widest uppercase mb-3">حكايتنا وقيمنا</h4>
             <h2 className="text-3xl sm:text-4xl font-black text-brand-dark leading-tight mb-6">
-              تراث فلاحي عريق يضمن لك اللقمة الطازجة واللحم المرمل
+              تراث فلاحي عريق يضمن لك المذاق الطازج واللحم المرمل
             </h2>
             <p className="text-slate-600 leading-relaxed mb-8 text-base">
               تأسست <strong>مزارع الحفني</strong> بهدف سد الفجوة بين الجودة العالية والأسعار المناسبة للمستهلك المصري. نؤمن بأن اللحوم والدواجن والألبان هي أساس التغذية السليمة، لذا قررنا إدارة الحلقة الإنتاجية بأكملها منا وإليكم؛ بدءاً من زراعة الأعلاف الطبيعية وتسمين المواشي في مزارعنا الصديقة للبيئة، وحتى الذبح الطبي بمجازر الدولة والتعبئة السليمة والوصول المبرد للبيوت.

@@ -5,6 +5,7 @@ export const CATEGORIES_INFO = [
   { id: 'processed', name: 'مصنعات لحوم', count: 13, desc: 'مصنعات بلدية محضرة من اللحوم الطازجة والبهارات الطبيعية الفاخرة بدون الصويا ومخلفات اللحوم والمواد الحافظة الضارة.' },
   { id: 'poultry', name: 'دواجن طازجة', count: 17, desc: 'دواجن ومربيات مزارعنا تتغذى على حبوب وأعلاف نباتية صافية، طازجة يومياً ومذبوحة ومنظفة بأعلى درجات التعقيم.' },
   { id: 'dairy', name: 'الألبان والحلويات', count: 19, desc: 'ألبان وحلويات شرقية طازجة محضرة يومياً من حليب مزارعنا النقي؛ أرز باللبن، أم علي، مهلبية، كاستر، زبادي وأكثر.' },
+  { id: 'cheese', name: 'الجبن والمشتقات', count: 38, desc: 'تشكيلة جبن بلدي ومستورد، لانشون، سلامي، بسطرمة، مش وقشطة — تُباع بالوزن: ثمن، ربع، نص أو كيلو.' },
 ] as const;
 
 const IMG = '/images';
@@ -97,11 +98,11 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'meat-22', name: 'لحم ضاني برقي', description: 'لحم ضاني بلدي برقي طازج من خراف المرعى الطبيعي، نكهة غنية تذوب في الفم.',
-    price: 495, unit: 'كيلو جرام', image: `${IMG}/قسم اللحوم/لحم ضانى برقى 495 م.ج.jpg`, category: 'meat', rating: 4.9, isAvailable: true,
+    price: 495, unit: 'كيلو جرام', image: `${IMG}/قسم اللحوم/لحم ضانى برقى 495 م.ج.png`, category: 'meat', rating: 4.9, isAvailable: true,
   },
   {
     id: 'meat-23', name: 'لحم ماعز بلدي', description: 'لحم ماعز بلدي طازج قليل الدهن وصحي، مثالي للطواجن والمندي والفتة.',
-    price: 520, unit: 'كيلو جرام', image: `${IMG}/قسم اللحوم/لحم ماعز 520 م.ج.jpg`, category: 'meat', rating: 4.8, isAvailable: true,
+    price: 520, unit: 'كيلو جرام', image: `${IMG}/قسم اللحوم/لحم ماعز 520 م.ج.png`, category: 'meat', rating: 4.8, isAvailable: true,
   },
   {
     id: 'meat-24', name: 'لحمة بلدي ملبس', description: 'لحمة بلدي ملبسة بالعظم بنسبة دهون مثالية، تعطي مرقاً غنياً للطبخ المصري.',
@@ -233,11 +234,11 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'poul-12', name: 'فراخ بالكيلو (بعد التنظيف)', description: 'دجاج فريش بالكيلو منظف بالكامل وجاهز للطبخ، طازج يومياً وبأعلى تعقيم.',
-    price: 135, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/فراخ بالكيلو بعد التنظيف سعر الكيلو 135 م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true,
+    price: 135, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/فراخ بالكيلو بعد التنظيف سعر الكيلو 135 م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true, minQuantity: 1, quantityStep: 1,
   },
   {
     id: 'poul-13', name: 'فراخ كاملة متبلة بالكيلو', description: 'فراخ كاملة متبلة جاهزة للفرن أو الشوي بخلطة بهارات شهية، طازجة يومياً.',
-    price: 135, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/فراخ كامله متبله بالكيلو  سعر الكيلو 135 م.ج.png`, category: 'poultry', rating: 4.9, isAvailable: true, tag: 'جاهزة للفرن',
+    price: 135, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/فراخ كامله متبله بالكيلو  سعر الكيلو 135 م.ج.png`, category: 'poultry', rating: 4.9, isAvailable: true, minQuantity: 1, quantityStep: 1, tag: 'جاهزة للفرن',
   },
   {
     id: 'poul-14', name: 'كبدة فراخ', description: 'كبدة دجاج طازجة منظفة، غنية بالحديد ومثالية للقلي السريع بالبهارات.',
@@ -332,6 +333,160 @@ export const PRODUCTS: Product[] = [
   {
     id: 'dairy-19', name: 'مهلبية كاستر وجيلي', description: 'طبقات مهلبية وكاستر وجيلي في كوب واحد، حلوى باردة متعددة النكهات.',
     price: 15, unit: 'العبوة', image: `${IMG}/قسم الالبان/مهلبيه كاستر جيلى 15م.ج.png`, category: 'dairy', rating: 4.9, isAvailable: true, tag: 'متعددة الطبقات',
+  },
+
+  // ===== قسم الجبن =====
+  {
+    id: 'cheese-1', name: 'بسطرمه بلدى', description: 'منتج مدخن وبارد فاخر، يُقطّع حسب الطلب بجودة عالية.',
+    price: 575, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/بسطرمه بلدى  ٥٧٥.jpg`, category: 'cheese', rating: 4.5, isAvailable: true, tag: 'فاخر',
+  },
+  {
+    id: 'cheese-2', name: 'تركى مدخن حلوانى', description: 'منتج مدخن وبارد فاخر، يُقطّع حسب الطلب بجودة عالية.',
+    price: 560, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/تركى مدخن حلوانى ٥٦٠.jpg`, category: 'cheese', rating: 4.6, isAvailable: true, tag: 'فاخر',
+  },
+  {
+    id: 'cheese-3', name: 'تركى مدخن فريش فارم', description: 'منتج مدخن وبارد فاخر، يُقطّع حسب الطلب بجودة عالية.',
+    price: 480, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/تركى مدخن فريش فارم ٤٨٠.jpg`, category: 'cheese', rating: 4.7, isAvailable: true,
+  },
+  {
+    id: 'cheese-4', name: 'جبنه إسطنبولى', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
+    price: 210, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه إسطنبولى ٢١٠.jpg`, category: 'cheese', rating: 4.8, isAvailable: true,
+  },
+  {
+    id: 'cheese-5', name: 'جبنه افانتى كريمى', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
+    price: 210, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه افانتى كريمى ٢١٠.jpg`, category: 'cheese', rating: 4.9, isAvailable: true,
+  },
+  {
+    id: 'cheese-6', name: 'جبنه براميلى خشاله', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
+    price: 205, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه براميلى خشاله ٢٠٥.jpg`, category: 'cheese', rating: 4.5, isAvailable: true,
+  },
+  {
+    id: 'cheese-7', name: 'جبنه براميلى فلفل', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
+    price: 195, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه براميلى فلفل ١٩٥.jpg`, category: 'cheese', rating: 4.6, isAvailable: true,
+  },
+  {
+    id: 'cheese-8', name: 'جبنه براميلى كاريبى', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
+    price: 210, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه براميلى كاريبى٢١٠.webp`, category: 'cheese', rating: 4.7, isAvailable: true,
+  },
+  {
+    id: 'cheese-9', name: 'جبنه براميلى مزبده', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
+    price: 195, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه براميلى مزبده ١٩٥.jpg`, category: 'cheese', rating: 4.8, isAvailable: true,
+  },
+  {
+    id: 'cheese-10', name: 'جبنه براميلى ناشفه', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
+    price: 195, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه براميلى ناشفه ١٩٥.jpg`, category: 'cheese', rating: 4.9, isAvailable: true,
+  },
+  {
+    id: 'cheese-11', name: 'جبنه جوده مستوردة', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
+    price: 600, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه جوده مستوردة  ٦٠٠.jpg`, category: 'cheese', rating: 4.5, isAvailable: true, tag: 'فاخر',
+  },
+  {
+    id: 'cheese-12', name: 'جبنه ريكفورد مستورد', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
+    price: 700, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه ريكفورد مستورد ٧٠٠.jpg`, category: 'cheese', rating: 4.6, isAvailable: true, tag: 'فاخر',
+  },
+  {
+    id: 'cheese-13', name: 'جبنه شيدر افانتى اطعم مختلفه', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
+    price: 350, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه شيدر افانتى اطعم مختلفه ٣٥٠.jpg`, category: 'cheese', rating: 4.7, isAvailable: true,
+  },
+  {
+    id: 'cheese-14', name: 'جبنه شيدر مستورد', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
+    price: 500, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه شيدر مستورد ٥٠٠.jpg`, category: 'cheese', rating: 4.8, isAvailable: true, tag: 'فاخر',
+  },
+  {
+    id: 'cheese-15', name: 'جبنه شيدر مصرى', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
+    price: 110, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه شيدر مصرى ١١٠.jpg`, category: 'cheese', rating: 4.9, isAvailable: true, tag: 'اقتصادي',
+  },
+  {
+    id: 'cheese-16', name: 'جبنه فلمنك فريكو مستورده', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
+    price: 800, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه فلمنك فريكو مستورده ٨٠٠.webp`, category: 'cheese', rating: 4.5, isAvailable: true, tag: 'فاخر',
+  },
+  {
+    id: 'cheese-17', name: 'جبنه فيومى', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
+    price: 185, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه فيومى ١٨٥.jpg`, category: 'cheese', rating: 4.6, isAvailable: true,
+  },
+  {
+    id: 'cheese-18', name: 'جبنه قريش نورا', description: 'جبنة قريش طازجة خفيفة وصحية، غنية بالبروتين.',
+    price: 135, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه قريش نورا ١٣٥.jpg`, category: 'cheese', rating: 4.7, isAvailable: true,
+  },
+  {
+    id: 'cheese-19', name: 'جبنه كاريبى بالقشطه', description: 'قشطة بلدية طازجة كثيفة، مثالية للحلويات والفطور.',
+    price: 185, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه كاريبى بالقشطه ١٨٥.jpg`, category: 'cheese', rating: 4.8, isAvailable: true,
+  },
+  {
+    id: 'cheese-20', name: 'جبنه كريمى طبيعى دومتى', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
+    price: 240, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه كريمى طبيعى دومتى ٢٤٠.jpg`, category: 'cheese', rating: 4.9, isAvailable: true,
+  },
+  {
+    id: 'cheese-21', name: 'جبنه ملح خفيف  الوادى', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
+    price: 155, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه ملح خفيف  الوادى ١٥٥.jpg`, category: 'cheese', rating: 4.5, isAvailable: true,
+  },
+  {
+    id: 'cheese-22', name: 'جبنه ملح خفيف الدوار', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
+    price: 220, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه ملح خفيف الدوار ٢٢٠.jpg`, category: 'cheese', rating: 4.6, isAvailable: true,
+  },
+  {
+    id: 'cheese-23', name: 'روزبيف فريش فارم', description: 'منتج مدخن وبارد فاخر، يُقطّع حسب الطلب بجودة عالية.',
+    price: 520, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/روزبيف فريش فارم ٥٢٠.jpg`, category: 'cheese', rating: 4.7, isAvailable: true, tag: 'فاخر',
+  },
+  {
+    id: 'cheese-24', name: 'رومى قديم', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
+    price: 305, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/رومى قديم ٣٠٥.jpg`, category: 'cheese', rating: 4.8, isAvailable: true,
+  },
+  {
+    id: 'cheese-25', name: 'رومى كافيار', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
+    price: 320, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/رومى كافيار ٣٢٠.webp`, category: 'cheese', rating: 4.9, isAvailable: true,
+  },
+  {
+    id: 'cheese-26', name: 'رومى وسط', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
+    price: 295, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/رومى وسط ٢٩٥.jpg`, category: 'cheese', rating: 4.5, isAvailable: true,
+  },
+  {
+    id: 'cheese-27', name: 'سلامى حلوانى', description: 'منتج مدخن وبارد فاخر، يُقطّع حسب الطلب بجودة عالية.',
+    price: 400, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/سلامى حلوانى ٤٠٠.jpg`, category: 'cheese', rating: 4.6, isAvailable: true,
+  },
+  {
+    id: 'cheese-28', name: 'قشطه بلدى', description: 'قشطة بلدية طازجة كثيفة، مثالية للحلويات والفطور.',
+    price: 400, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/قشطه بلدى ٤٠٠.jpg`, category: 'cheese', rating: 4.7, isAvailable: true,
+  },
+  {
+    id: 'cheese-29', name: 'لانشون حلوانى زيتون', description: 'لانشون طازج مقطع بعناية، مثالي للساندويتشات والفطار.',
+    price: 320, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/لانشون حلوانى زيتون ٣٢٠.jpg`, category: 'cheese', rating: 4.8, isAvailable: true,
+  },
+  {
+    id: 'cheese-30', name: 'لانشون حلوانى ساده', description: 'لانشون طازج مقطع بعناية، مثالي للساندويتشات والفطار.',
+    price: 320, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/لانشون حلوانى ساده٣٢٠.jpg`, category: 'cheese', rating: 4.9, isAvailable: true,
+  },
+  {
+    id: 'cheese-31', name: 'لانشون حلوانى فراخ', description: 'لانشون طازج مقطع بعناية، مثالي للساندويتشات والفطار.',
+    price: 320, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/لانشون حلوانى فراخ ٣٢٠.jpg`, category: 'cheese', rating: 4.5, isAvailable: true,
+  },
+  {
+    id: 'cheese-32', name: 'لانشون حلوانى فراخ مدخن', description: 'لانشون طازج مقطع بعناية، مثالي للساندويتشات والفطار.',
+    price: 445, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/لانشون حلوانى فراخ مدخن ٤٤٥.jpg`, category: 'cheese', rating: 4.6, isAvailable: true,
+  },
+  {
+    id: 'cheese-33', name: 'لانشون حلوانى فلفل', description: 'لانشون طازج مقطع بعناية، مثالي للساندويتشات والفطار.',
+    price: 320, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/لانشون حلوانى فلفل٣٢٠.jpg`, category: 'cheese', rating: 4.7, isAvailable: true,
+  },
+  {
+    id: 'cheese-34', name: 'لانشون فريش فارم', description: 'لانشون طازج مقطع بعناية، مثالي للساندويتشات والفطار.',
+    price: 310, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/لانشون فريش فارم ٣١٠.jpg`, category: 'cheese', rating: 4.8, isAvailable: true,
+  },
+  {
+    id: 'cheese-35', name: 'لانشون فريش فارم بسطرمه', description: 'لانشون طازج مقطع بعناية، مثالي للساندويتشات والفطار.',
+    price: 375, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/لانشون فريش فارم بسطرمه  ٣٧٥.jpg`, category: 'cheese', rating: 4.9, isAvailable: true,
+  },
+  {
+    id: 'cheese-36', name: 'لانشون فريش فارم فراخ', description: 'لانشون طازج مقطع بعناية، مثالي للساندويتشات والفطار.',
+    price: 310, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/لانشون فريش فارم فراخ ٣١٠.jpg`, category: 'cheese', rating: 4.5, isAvailable: true,
+  },
+  {
+    id: 'cheese-37', name: 'مش صعيدى', description: 'مش بلدي أصيل بنكهة غنية، يُباع بالوزن حسب اختيارك.',
+    price: 145, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/مش صعيدى ١٤٥.jpg`, category: 'cheese', rating: 4.6, isAvailable: true,
+  },
+  {
+    id: 'cheese-38', name: 'مش لهاليبو', description: 'مش بلدي أصيل بنكهة غنية، يُباع بالوزن حسب اختيارك.',
+    price: 95, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/مش لهاليبو ٩٥.jpg`, category: 'cheese', rating: 4.7, isAvailable: true, tag: 'اقتصادي',
   },
 ];
 

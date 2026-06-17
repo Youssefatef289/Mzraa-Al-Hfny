@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { X, ShoppingBag, Plus, Minus, Trash2, MessageSquare, CheckCircle2 } from 'lucide-react';
 import { CartItem, OrderDetails } from '../types';
 import { FARM_INFO } from '../data';
+import { formatCheesePortionLabel, formatQty, getCartItemStep, getWeightQuantityConfig, isCheeseProduct } from '../cartUtils';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface CartDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   cartItems: CartItem[];
-  onUpdateQty: (productId: string, quantity: number) => void;
-  onRemoveItem: (productId: string) => void;
+  onUpdateQty: (cartKey: string, quantity: number) => void;
+  onRemoveItem: (cartKey: string) => void;
   onClearCart: () => void;
 }
 
@@ -84,10 +85,11 @@ export default function CartDrawer({
     messageText += `*🛒 تفاصيل السلع المطلوبة:*\n`;
 
     cartItems.forEach((item, index) => {
-      const unitShort = item.product.unit === 'كيلو جرام' ? 'كجم' : 'قطعة';
-      const qtyText = Number.isInteger(item.quantity) ? `${item.quantity}` : item.quantity.toFixed(1);
       const lineTotal = Math.round(item.product.price * item.quantity * 100) / 100;
-      messageText += `${index + 1}. ${item.product.name} (${qtyText} ${unitShort}) - ${lineTotal} ج.م\n`;
+      const qtyLabel = isCheeseProduct(item.product)
+        ? formatCheesePortionLabel(item.portionKg, item.quantity)
+        : `${formatQty(item.quantity)} ${item.product.unit === 'كيلو جرام' ? 'كجم' : 'قطعة'}`;
+      messageText += `${index + 1}. ${item.product.name} (${qtyLabel}) - ${lineTotal} ج.م\n`;
     });
 
     messageText += `------------------------------------\n`;
@@ -199,18 +201,22 @@ export default function CartDrawer({
                   {cartItems.length > 0 ? (
                     <div className="space-y-4">
                       {cartItems.map((item) => {
-                        const isWeight = item.product.unit === 'كيلو جرام';
-                        const step = isWeight ? 0.5 : 1;
-                        const minQty = step;
-                        const unitShort = isWeight ? 'كجم' : 'قطعة';
-                        const fmt = (n: number) => (Number.isInteger(n) ? `${n}` : n.toFixed(1));
+                        const isCheese = isCheeseProduct(item.product);
+                        const isWeight = item.product.unit === 'كيلو جرام' && !isCheese;
+                        const step = getCartItemStep(item.product, item.portionKg);
+                        const minQty = getWeightQuantityConfig(item.product).min;
+                        const unitShort = item.product.unit === 'كيلو جرام' ? 'كجم' : 'قطعة';
+                        const fmt = formatQty;
                         const imgSrc = item.product.image.startsWith('/')
                           ? encodeURI(item.product.image)
                           : item.product.image;
                         const lineTotal = Math.round(item.product.price * item.quantity * 100) / 100;
+                        const qtyDisplay = isCheese
+                          ? formatCheesePortionLabel(item.portionKg, item.quantity)
+                          : `${fmt(item.quantity)} ${unitShort}`;
                         return (
                         <div
-                          key={item.product.id}
+                          key={item.cartKey}
                           className="flex items-center gap-4 p-3.5 bg-slate-55 border border-slate-100 rounded-2xl bg-slate-50/50 hover:bg-slate-50 transition-colors"
                         >
                           {/* Product thumbnail (full image) */}
@@ -241,7 +247,7 @@ export default function CartDrawer({
                             {/* Delete Button */}
                             <button
                               type="button"
-                              onClick={() => onRemoveItem(item.product.id)}
+                              onClick={() => onRemoveItem(item.cartKey)}
                               className="text-slate-350 hover:text-red-500 cursor-pointer p-1 rounded transition-colors"
                               aria-label="حذف السلعة"
                             >
@@ -254,8 +260,8 @@ export default function CartDrawer({
                                 type="button"
                                 onClick={() =>
                                   onUpdateQty(
-                                    item.product.id,
-                                    Math.round((item.quantity - step) * 100) / 100
+                                    item.cartKey,
+                                    Math.round((item.quantity - step) * 1000) / 1000
                                   )
                                 }
                                 disabled={item.quantity <= minQty}
@@ -264,14 +270,14 @@ export default function CartDrawer({
                                 <Minus className="w-3.5 h-3.5" />
                               </button>
                               <span className="text-xs font-black text-slate-800 min-w-[2.5rem] text-center">
-                                {fmt(item.quantity)} {unitShort}
+                                {isCheese ? qtyDisplay : `${fmt(item.quantity)} ${unitShort}`}
                               </span>
                               <button
                                 type="button"
                                 onClick={() =>
                                   onUpdateQty(
-                                    item.product.id,
-                                    Math.round((item.quantity + step) * 100) / 100
+                                    item.cartKey,
+                                    Math.round((item.quantity + step) * 1000) / 1000
                                   )
                                 }
                                 className="w-6 h-6 rounded bg-slate-50 hover:bg-slate-100 flex items-center justify-center text-slate-600 cursor-pointer"

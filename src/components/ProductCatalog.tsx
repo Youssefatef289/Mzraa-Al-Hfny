@@ -1,31 +1,42 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Search, RefreshCw, Layers, ChevronDown } from 'lucide-react';
 import { Product } from '../types';
+import { getQtyInCartForProduct } from '../cartUtils';
 import { PRODUCTS, CATEGORIES_INFO } from '../data';
 import ProductCard from './ProductCard';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, LayoutGroup } from 'motion/react';
 
 interface ProductCatalogProps {
   onAddToCart: (product: Product, quantity: number) => void;
-  onInstantBuy: (product: Product) => void;
+  onInstantBuy: (product: Product, quantity: number) => void;
   cart: { [productId: string]: number };
   initialVisible?: number;
+  /** الصفحة الرئيسية: صف واحد في البداية ثم توسّع لأسفل */
+  singleRow?: boolean;
 }
 
-type CategoryFilter = 'all' | 'meat' | 'processed' | 'poultry' | 'dairy';
+type CategoryFilter = 'all' | 'meat' | 'processed' | 'poultry' | 'dairy' | 'cheese';
 
 const LOAD_STEP = 8;
+const HOME_ROW_SIZE = 4;
+
+const layoutSpring = { type: 'spring' as const, stiffness: 280, damping: 28 };
+const expandSpring = { type: 'spring' as const, stiffness: 320, damping: 26 };
 
 export default function ProductCatalog({
   onAddToCart,
   onInstantBuy,
   cart,
   initialVisible = 4,
+  singleRow = false,
 }: ProductCatalogProps) {
-  const INITIAL_VISIBLE = initialVisible; // صف واحد على الشاشات الكبيرة (افتراضياً)
+  const INITIAL_VISIBLE = initialVisible;
+  const loadStep = singleRow ? HOME_ROW_SIZE : LOAD_STEP;
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>('all');
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
+  const [animateFromIndex, setAnimateFromIndex] = useState(0);
+  const gridRef = useRef<HTMLDivElement>(null);
 
   // Find info about active category
   const activeCategoryInfo = useMemo(() => {
@@ -56,7 +67,8 @@ export default function ProductCatalog({
   // Reset visible cards whenever the filter changes (back to a single row).
   useEffect(() => {
     setVisibleCount(INITIAL_VISIBLE);
-  }, [activeCategory, searchQuery]);
+    setAnimateFromIndex(0);
+  }, [activeCategory, searchQuery, INITIAL_VISIBLE]);
 
   const visibleProducts = filteredProducts.slice(0, visibleCount);
   const hasMore = visibleCount < filteredProducts.length;
@@ -68,11 +80,23 @@ export default function ProductCatalog({
   };
 
   const handleShowMore = () => {
-    setVisibleCount((prev) => prev + LOAD_STEP);
+    const fromIndex = visibleCount;
+    setAnimateFromIndex(fromIndex);
+    setVisibleCount((prev) => prev + loadStep);
+
+    window.setTimeout(() => {
+      const firstNewCard = gridRef.current?.querySelector(`[data-product-index="${fromIndex}"]`);
+      firstNewCard?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 120);
   };
 
   const handleShowLess = () => {
+    setAnimateFromIndex(INITIAL_VISIBLE);
     setVisibleCount(INITIAL_VISIBLE);
+
+    window.setTimeout(() => {
+      gridRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 80);
   };
 
   const categories = [
@@ -81,6 +105,7 @@ export default function ProductCatalog({
     { id: 'processed', name: 'مصنعات لحوم', icon: '🌭' },
     { id: 'poultry', name: 'دواجن طازجة', icon: '🍗' },
     { id: 'dairy', name: 'ألبان وحلويات', icon: '🍮' },
+    { id: 'cheese', name: 'الجبن', icon: '🧀' },
   ];
 
   return (
@@ -184,37 +209,72 @@ export default function ProductCatalog({
           )}
         </AnimatePresence>
 
-        {/* Products Grid */}
+        {/* Products Grid / Row */}
         {filteredProducts.length > 0 ? (
           <>
-            <motion.div
-              layout
-              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8"
-            >
-              <AnimatePresence mode="popLayout">
-                {visibleProducts.map((p, idx) => (
-                  <motion.div
-                    key={p.id}
-                    layout
-                    initial={{ opacity: 0, y: 24, scale: 0.97 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -10, scale: 0.97 }}
-                    transition={{ duration: 0.3, delay: (idx % LOAD_STEP) * 0.04 }}
-                  >
-                    <ProductCard
-                      product={p}
-                      onAddToCart={onAddToCart}
-                      onInstantBuy={onInstantBuy}
-                      quantityInCart={cart[p.id] || 0}
-                    />
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </motion.div>
+            <LayoutGroup>
+              <motion.div
+                ref={gridRef}
+                layout
+                transition={{ layout: layoutSpring }}
+                className={
+                  singleRow
+                    ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10'
+                    : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10'
+                }
+              >
+                <AnimatePresence mode="popLayout" initial={false}>
+                  {visibleProducts.map((p, idx) => {
+                    const isNewBatch = idx >= animateFromIndex;
+                    const staggerIndex = isNewBatch ? idx - animateFromIndex : 0;
+
+                    return (
+                      <motion.div
+                        key={p.id}
+                        data-product-index={idx}
+                        layout
+                        initial={
+                          isNewBatch
+                            ? { opacity: 0, y: 56, scale: 0.9, filter: 'blur(6px)' }
+                            : false
+                        }
+                        animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+                        exit={{ opacity: 0, y: -28, scale: 0.94, filter: 'blur(4px)' }}
+                        transition={{
+                          layout: layoutSpring,
+                          opacity: { duration: 0.35 },
+                          filter: { duration: 0.35 },
+                          ...(isNewBatch
+                            ? {
+                                ...expandSpring,
+                                delay: staggerIndex * 0.09,
+                              }
+                            : { duration: 0.3 }),
+                        }}
+                      >
+                        <ProductCard
+                          product={p}
+                          onAddToCart={onAddToCart}
+                          onInstantBuy={onInstantBuy}
+                          quantityInCart={getQtyInCartForProduct(cart, p.id)}
+                          disableEntrance
+                        />
+                      </motion.div>
+                    );
+                  })}
+                </AnimatePresence>
+              </motion.div>
+            </LayoutGroup>
 
             {/* Show more / less controls */}
             {(hasMore || isExpanded) && (
-              <div className="flex justify-center mt-12">
+              <motion.div
+                layout
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ ...layoutSpring, delay: 0.05 }}
+                className="flex justify-center mt-12"
+              >
                 {hasMore ? (
                   <motion.button
                     type="button"
@@ -236,7 +296,7 @@ export default function ProductCatalog({
                     <ChevronDown className="w-4.5 h-4.5 rotate-180 transition-transform duration-300 group-hover:-translate-y-0.5" />
                   </motion.button>
                 )}
-              </div>
+              </motion.div>
             )}
           </>
         ) : (

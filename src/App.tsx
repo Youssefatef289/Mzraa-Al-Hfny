@@ -9,6 +9,7 @@ import ProductCatalog from './components/ProductCatalog';
 import ReviewsSlider from './components/ReviewsSlider';
 import ContactSection from './components/ContactSection';
 import CartDrawer from './components/CartDrawer';
+import { makeCartKey, parseCartKey } from './cartUtils';
 import { Product, CartItem } from './types';
 import { PRODUCTS, FARM_INFO } from './data';
 
@@ -58,30 +59,31 @@ export default function App() {
 
   // Cart operations
   const handleAddToCart = (product: Product, quantity: number) => {
-    const currentQty = cart[product.id] || 0;
+    const key = makeCartKey(product.id, product.category, quantity);
+    const currentQty = cart[key] || 0;
     const updatedCart = {
       ...cart,
-      [product.id]: currentQty + quantity,
+      [key]: currentQty + quantity,
     };
     saveCartToStorage(updatedCart);
     showToast(product.name);
   };
 
-  const handleUpdateQty = (productId: string, quantity: number) => {
+  const handleUpdateQty = (cartKey: string, quantity: number) => {
     if (quantity <= 0) {
-      handleRemoveItem(productId);
+      handleRemoveItem(cartKey);
       return;
     }
     const updatedCart = {
       ...cart,
-      [productId]: quantity,
+      [cartKey]: quantity,
     };
     saveCartToStorage(updatedCart);
   };
 
-  const handleRemoveItem = (productId: string) => {
+  const handleRemoveItem = (cartKey: string) => {
     const updatedCart = { ...cart };
-    delete updatedCart[productId];
+    delete updatedCart[cartKey];
     saveCartToStorage(updatedCart);
   };
 
@@ -89,16 +91,15 @@ export default function App() {
     saveCartToStorage({});
   };
 
-  const handleInstantBuy = (product: Product) => {
-    // Add 1 of item if not already in cart, then open cart drawer immediately
-    const currentQty = cart[product.id] || 0;
+  const handleInstantBuy = (product: Product, quantity = 1) => {
+    const key = makeCartKey(product.id, product.category, quantity);
+    const currentQty = cart[key] || 0;
     const updatedCart = {
       ...cart,
-      [product.id]: currentQty === 0 ? 1 : currentQty,
+      [key]: currentQty === 0 ? quantity : currentQty,
     };
     saveCartToStorage(updatedCart);
     setIsCartOpen(true);
-    // Focus or trigger cart drawer checkout form
   };
 
   const scrollToTop = () => {
@@ -133,15 +134,18 @@ export default function App() {
 
   // Build cart item list
   const cartItems: CartItem[] = Object.keys(cart)
-    .map((id) => {
-      const product = PRODUCTS.find((p) => p.id === id);
+    .map((cartKey) => {
+      const { productId, portionKg } = parseCartKey(cartKey);
+      const product = PRODUCTS.find((p) => p.id === productId);
       if (!product) return null;
       return {
         product,
-        quantity: cart[id],
-      };
+        quantity: cart[cartKey],
+        cartKey,
+        portionKg,
+      } satisfies CartItem;
     })
-    .filter((item): item is CartItem => item !== null);
+    .filter((item): item is NonNullable<typeof item> => item !== null);
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -168,6 +172,7 @@ export default function App() {
               onAddToCart={handleAddToCart}
               onInstantBuy={handleInstantBuy}
               cart={cart}
+              singleRow
             />
 
             {/* 5. Customer Testimonials Slider */}
