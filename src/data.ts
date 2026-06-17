@@ -1,11 +1,11 @@
 import { Product, Review } from './types';
 
 export const CATEGORIES_INFO = [
-  { id: 'meat', name: 'لحوم طازجة', count: 30, desc: 'لحوم بلدية متميزة من مزارعنا الخاصة تتغذى على أعلاف طبيعية 100% ويتم ذبحها في السلخانة الحكومية وتحت إشراف طبي كامل.' },
+  { id: 'meat', name: 'لحوم طازجة', count: 31, desc: 'لحوم بلدية متميزة من مزارعنا الخاصة تتغذى على أعلاف طبيعية 100% ويتم ذبحها في السلخانة الحكومية وتحت إشراف طبي كامل.' },
   { id: 'processed', name: 'مصنعات لحوم', count: 13, desc: 'مصنعات بلدية محضرة من اللحوم الطازجة والبهارات الطبيعية الفاخرة بدون الصويا ومخلفات اللحوم والمواد الحافظة الضارة.' },
-  { id: 'poultry', name: 'دواجن طازجة', count: 17, desc: 'دواجن ومربيات مزارعنا تتغذى على حبوب وأعلاف نباتية صافية، طازجة يومياً ومذبوحة ومنظفة بأعلى درجات التعقيم.' },
+  { id: 'poultry', name: 'دواجن طازجة', count: 18, desc: 'دواجن ومربيات مزارعنا تتغذى على حبوب وأعلاف نباتية صافية، طازجة يومياً ومذبوحة ومنظفة بأعلى درجات التعقيم.' },
   { id: 'dairy', name: 'الألبان والحلويات', count: 19, desc: 'ألبان وحلويات شرقية طازجة محضرة يومياً من حليب مزارعنا النقي؛ أرز باللبن، أم علي، مهلبية، كاستر، زبادي وأكثر.' },
-  { id: 'cheese', name: 'الجبن والمشتقات', count: 38, desc: 'تشكيلة جبن بلدي ومستورد، لانشون، سلامي، بسطرمة، مش وقشطة — تُباع بالوزن: ثمن، ربع، نص أو كيلو.' },
+  { id: 'cheese', name: 'الجبن والمشتقات', count: 44, desc: 'تشكيلة جبن بلدي ومستورد، لانشون، سلامي، بسطرمة، مش وقشطة — تُباع بالوزن: ثمن، ربع، نص أو كيلو.' },
 ] as const;
 
 const IMG = '/images';
@@ -30,7 +30,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'meat-5', name: 'ريش ضاني', description: 'ريش ضاني بلدي طازجة مقطعة بعناية، دهن متوازن يمنح مذاقاً خرافياً عند الشوي.',
-    price: 525, unit: 'كيلو جرام', image: `${IMG}/قسم اللحوم/ريش ضانى  525 م.ج.png`, category: 'meat', rating: 4.9, isAvailable: true, tag: 'عشاق الشواء',
+    price: 525, unit: 'كيلو جرام', image: `${IMG}/قسم اللحوم/ضانى برقى 525.jpeg`, category: 'meat', rating: 4.9, isAvailable: true, tag: 'عشاق الشواء',
   },
   {
     id: 'meat-6', name: 'ستيك بقري', description: 'ستيك بقري سميك من أرقى الأجزاء، جاهز للطهي بالزبدة والثوم وإكليل الجبل.',
@@ -131,6 +131,10 @@ export const PRODUCTS: Product[] = [
   {
     id: 'meat-30', name: 'وش الفخدة', description: 'وش الفخدة البقري الطري، من أفضل القطعيات للشرائح والاستيك والطبخ.',
     price: 480, unit: 'كيلو جرام', image: `${IMG}/قسم اللحوم/وش الفخده 480 م.ج.png`, category: 'meat', rating: 4.8, isAvailable: true,
+  },
+  {
+    id: 'meat-31', name: 'عرق روستو', description: 'عرق روستو بقري فاخر طري، مثالي للستيك والشواء السريع بنكهة غنية ومتوازنة.',
+    price: 480, unit: 'كيلو جرام', image: `${IMG}/قسم اللحوم/عرق روستو 480.jpeg`, category: 'meat', rating: 4.9, isAvailable: true,
   },
 
   // ===== قسم مصنعات اللحوم =====
@@ -255,6 +259,10 @@ export const PRODUCTS: Product[] = [
   {
     id: 'poul-17', name: 'أوراك متبلة', description: 'أوراك دجاج متبلة جاهزة بخلطة بهارات شهية، جاهزة للشوي أو الفرن مباشرة.',
     price: 125, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/وراك متبل  125 م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true,
+  },
+  {
+    id: 'poul-18', name: 'تشيكن جريل', description: 'شرائح تشيكن جريل دجاج طازجة متبلة، جاهزة للشوي أو التحمير بسرعة وبطراوة.',
+    price: 225, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/تشكين جريل 225.jpeg`, category: 'poultry', rating: 4.9, isAvailable: true, tag: 'جاهز للشوي',
   },
 
   // ===== قسم الألبان والحلويات =====
@@ -487,6 +495,30 @@ export const PRODUCTS: Product[] = [
   {
     id: 'cheese-38', name: 'مش لهاليبو', description: 'مش بلدي أصيل بنكهة غنية، يُباع بالوزن حسب اختيارك.',
     price: 95, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/مش لهاليبو ٩٥.jpg`, category: 'cheese', rating: 4.7, isAvailable: true, tag: 'اقتصادي',
+  },
+  {
+    id: 'cheese-39', name: 'البخيرة الحفني', description: 'بخيرة بلدية طازجة من مزارع الحفني، غنية بالبروتين ومناسبة للفطور.',
+    price: 150, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/ال حفنى بخيره 150.jpeg`, category: 'cheese', rating: 4.8, isAvailable: true,
+  },
+  {
+    id: 'cheese-40', name: 'كيري نورا', description: 'جبنة كيري طرية بنكهة مميزة، مثالية للساندويتشات والوجبات الخفيفة.',
+    price: 150, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/كيرى نورا 150.jpeg`, category: 'cheese', rating: 4.7, isAvailable: true,
+  },
+  {
+    id: 'cheese-41', name: 'قريش الحفني منزوع الدسم', description: 'قريش الحفني منزوع الدسم، خفيف وصحي وغني بالبروتين.',
+    price: 135, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/قريش ال حفنى منزوع الدسم 135.jpeg`, category: 'cheese', rating: 4.8, isAvailable: true, tag: 'صحي',
+  },
+  {
+    id: 'cheese-42', name: 'لبنة زيت زيتون', description: 'لبنة طرية بنكهة زيت الزيتون، مثالية للفطور والساندويتشات.',
+    price: 130, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/لبنه زيت زيتون 130.jpeg`, category: 'cheese', rating: 4.7, isAvailable: true,
+  },
+  {
+    id: 'cheese-43', name: 'لبنة زيت زيتون وزعتر', description: 'لبنة بنكهة زيت الزيتون والزعتر، طعم بلدي أصيل للفطور.',
+    price: 130, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/لبنه زيت زيتون و زعتر 130.jpeg`, category: 'cheese', rating: 4.8, isAvailable: true,
+  },
+  {
+    id: 'cheese-44', name: 'تحابيش الحفني', description: 'تحابيش جبن بلدي من مزارع الحفني، نكهة غنية ومميزة.',
+    price: 135, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/تحابيش ال حفنى 135.jpeg`, category: 'cheese', rating: 4.6, isAvailable: true,
   },
 ];
 

@@ -3,6 +3,7 @@ import { X, ShoppingBag, Plus, Minus, Trash2, MessageSquare, CheckCircle2 } from
 import { CartItem, OrderDetails } from '../types';
 import { FARM_INFO } from '../data';
 import { formatCheesePortionLabel, formatQty, getCartItemStep, getWeightQuantityConfig, isCheeseProduct } from '../cartUtils';
+import { getProductImageUrl } from '../imageUtils';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface CartDrawerProps {
@@ -207,9 +208,7 @@ export default function CartDrawer({
                         const minQty = getWeightQuantityConfig(item.product).min;
                         const unitShort = item.product.unit === 'كيلو جرام' ? 'كجم' : 'قطعة';
                         const fmt = formatQty;
-                        const imgSrc = item.product.image.startsWith('/')
-                          ? encodeURI(item.product.image)
-                          : item.product.image;
+                        const imgSrc = getProductImageUrl(item.product.image);
                         const lineTotal = Math.round(item.product.price * item.quantity * 100) / 100;
                         const qtyDisplay = isCheese
                           ? formatCheesePortionLabel(item.portionKg, item.quantity)

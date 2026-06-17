@@ -3,6 +3,7 @@ import { Star, Plus, Minus, ShoppingCart, Check } from 'lucide-react';
 import { Product } from '../types';
 import { motion } from 'motion/react';
 import { CHEESE_PORTIONS, formatQty, getWeightQuantityConfig, isCheeseProduct } from '../cartUtils';
+import { getProductImageUrl } from '../imageUtils';
 
 interface ProductCardProps {
   product: Product;
@@ -47,7 +48,7 @@ export default function ProductCard({
   };
 
   const lineTotal = Math.round(product.price * activeQty * 100) / 100;
-  const imageSrc = product.image.startsWith('/') ? encodeURI(product.image) : product.image;
+  const imageSrc = getProductImageUrl(product.image);
 
   const cardClassName =
     'rounded-2xl overflow-hidden flex flex-col h-full transition-all duration-300 group';
@@ -61,6 +62,8 @@ export default function ProductCard({
           className="max-w-full max-h-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
           referrerPolicy="no-referrer"
           loading="lazy"
+          decoding="async"
+          fetchPriority="low"
         />
         {!product.isAvailable && (
           <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] flex items-center justify-center">
