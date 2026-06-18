@@ -55,11 +55,11 @@ export default function ProductCard({
 
   const cardContent = (
     <>
-      <div className="relative h-[22rem] sm:h-[24rem] overflow-hidden bg-transparent shrink-0 flex items-center justify-center p-3">
+      <div className="relative w-full aspect-square overflow-hidden bg-slate-100/40 shrink-0">
         <img
           src={imageSrc}
           alt={product.name}
-          className="max-w-full max-h-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+          className="absolute inset-0 w-full h-full object-contain p-3 sm:p-4 transition-transform duration-500 group-hover:scale-105"
           referrerPolicy="no-referrer"
           loading="lazy"
           decoding="async"

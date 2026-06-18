@@ -219,11 +219,11 @@ export default function CartDrawer({
                           className="flex items-center gap-4 p-3.5 bg-slate-55 border border-slate-100 rounded-2xl bg-slate-50/50 hover:bg-slate-50 transition-colors"
                         >
                           {/* Product thumbnail (full image) */}
-                          <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-white border border-slate-100 flex items-center justify-center p-1">
+                          <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-slate-100/40 border border-slate-100 relative">
                             <img
                               src={imgSrc}
                               alt={item.product.name}
-                              className="max-w-full max-h-full object-contain"
+                              className="absolute inset-0 w-full h-full object-contain p-1"
                               referrerPolicy="no-referrer"
                             />
                           </div>
