@@ -203,7 +203,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'poul-4', name: 'بانيه متبل جاهز', description: 'شرائح بانيه دجاج متبلة جاهزة بخلطة متوازنة، جاهزة للقلي مباشرة بطراوة فائقة.',
-    price: 225, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/بانيه متبل جاهز 225 م.ج.png`, category: 'poultry', rating: 4.9, isAvailable: true, tag: 'سهل وسريع',
+    price: 190, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/بانيه متبل جاهز 190.jpeg`, category: 'poultry', rating: 4.9, isAvailable: true, tag: 'سهل وسريع',
   },
   {
     id: 'poul-5', name: 'برجر فراخ', description: 'أقراص برجر دجاج طازجة متماسكة خالية من الصويا، مثالية للشواية والساندويتش.',
@@ -395,7 +395,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'cheese-13', name: 'شيدر أحمر', description: 'جبنة شيدر أحمر أفانتي مقطعة، نكهة غنية ومثالية للساندويتشات والوجبات.',
-    price: 350, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/شيدر احمر 350.jpeg`, category: 'cheese', rating: 4.7, isAvailable: true,
+    price: 350, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/شيدر أحمر 350 .jpeg`, category: 'cheese', rating: 4.7, isAvailable: true,
   },
   {
     id: 'cheese-14', name: 'جبنه شيدر مستورد', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
