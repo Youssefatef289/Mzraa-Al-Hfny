@@ -152,7 +152,13 @@ export default function App() {
   return (
     <div className="min-h-screen text-slate-800 bg-slate-50 relative flex flex-col justify-between pb-16 md:pb-0">
       {/* Absolute Header with interactive cart info */}
-      <Header cartCount={cartCount} onOpenCart={() => setIsCartOpen(true)} onNavigate={handleNavigate} solid={page === 'products'} />
+      <Header
+        cartCount={cartCount}
+        onOpenCart={() => setIsCartOpen(true)}
+        onNavigate={handleNavigate}
+        solid={page === 'products'}
+        heroIntegrated={page === 'home'}
+      />
 
       {/* Main Pages Flow */}
       <main className="flex-grow">

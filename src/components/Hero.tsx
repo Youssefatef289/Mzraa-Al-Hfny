@@ -1,129 +1,126 @@
-import { ArrowDown, Flame, ShieldCheck, Truck } from 'lucide-react';
+import { BadgeCheck, ShoppingCart, Truck } from 'lucide-react';
 import { motion } from 'motion/react';
-import { FARM_INFO } from '../data';
+
+const FEATURES = [
+  { label: 'توصيل سريع لحد باب البيت', Icon: Truck },
+  { label: 'تقطيع احترافي بأيدي خبراء', Icon: CleaverIcon },
+  { label: 'جودة مضمونة 100%', Icon: BadgeCheck },
+  { label: 'لحوم طازجة يومياً', Icon: SteakIcon },
+] as const;
+
+function CleaverIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <path
+        d="M4 18.5 14.5 8l5.5 1.5-1.5 5.5L9.5 20 4 18.5Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <path d="M14.5 8 20 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function SteakIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <path
+        d="M6 14c0-4 2.5-8 6-8s6 4 6 8c0 2.5-1.5 4.5-3.5 5.5S12 21 12 21s-1-1.5-2.5-1.5S6 16.5 6 14Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <circle cx="14.5" cy="11" r="1.2" fill="currentColor" />
+    </svg>
+  );
+}
 
 export default function Hero() {
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Background Image Container */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src="/images/hero.jpg"
-          alt="مزارع وجزارة الحفني"
-          className="w-full h-full object-cover object-center scale-105"
-          referrerPolicy="no-referrer"
-        />
-        {/* Overlay for centered text readability */}
-        <div className="absolute inset-0 bg-brand-dark/55" />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-brand-dark/30 to-brand-dark/40" />
-      </div>
+    <section id="home" className="relative overflow-hidden">
+      {/* Full-bleed background — extends behind navbar */}
+      <div className="absolute inset-0 hero-banner-bg" />
+      <div className="absolute inset-0 hero-banner-grain opacity-40" />
+      <div className="absolute inset-y-0 left-0 w-1/2 hero-farmhouse opacity-[0.07] pointer-events-none" aria-hidden="true" />
+      <div className="absolute inset-y-0 right-0 w-1/2 hero-cow opacity-[0.06] pointer-events-none" aria-hidden="true" />
+      <span className="hero-spark hero-spark-1" aria-hidden="true" />
+      <span className="hero-spark hero-spark-2" aria-hidden="true" />
+      <span className="hero-pepper hero-pepper-1" aria-hidden="true" />
+      <span className="hero-pepper hero-pepper-2" aria-hidden="true" />
+      <span className="hero-leaf hero-leaf-1" aria-hidden="true" />
 
-      {/* Hero Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 w-full flex items-center justify-center min-h-[calc(100vh-5rem)]">
-        <div className="max-w-3xl w-full text-center text-white mx-auto">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center justify-center gap-1.5 bg-brand-medium/20 backdrop-blur-sm border border-brand-medium/40 py-1.5 px-4 rounded-full text-brand-light text-xs font-semibold mb-6"
-          >
-            <Flame className="w-4 h-4 text-brand-gold animate-pulse" />
-            <span>منتجات بلدي طازجة من مزارعنا لمطبخك</span>
-          </motion.div>
-
-          {/* Heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] text-white mb-6"
-          >
-            جودة مزارع الحفني<br />
-            <span className="text-sky-300 italic font-medium text-4xl sm:text-5xl lg:text-6xl pb-2 block">أجود أنواع اللحوم الطازجة</span>
-          </motion.h1>
-
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-base sm:text-lg leading-relaxed mb-10 max-w-2xl mx-auto text-slate-200"
-          >
-            نوفر لك أرقى قطوعات اللحم البلدي والمصنعات والدواجن الطازجة، بجانب منتجات الألبان الفلاحي النقية بالطعم الأصيل من مزارعنا مباشرة بأعلى معايير النظافة والتعقيم.
-          </motion.p>
-
-          {/* Action Cta Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="flex flex-wrap gap-4 justify-center items-center"
-          >
-            <a
-              href="#products"
-              className="px-8 py-4 bg-brand-medium hover:bg-brand-hover text-white font-extrabold rounded-xl shadow-lg hover:shadow-brand-medium/30 transition-all duration-300 transform hover:-translate-y-0.5 text-center cursor-pointer min-w-[170px]"
+      <div className="relative z-10 min-h-[calc(100vh-0px)] min-h-[640px] flex items-center pt-24 sm:pt-28 pb-12 sm:pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 xl:gap-14 items-center">
+            {/* Text — visual left in RTL */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+              className="order-1 lg:order-2 flex flex-col items-center text-center max-w-xl mx-auto lg:mx-0 lg:mr-auto lg:items-center"
             >
-              تصفح منتجاتنا
-            </a>
-            <a
-              href={`https://wa.me/${FARM_INFO.whatsapp}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 bg-white/10 hover:bg-white hover:text-brand-dark text-white font-extrabold rounded-xl backdrop-blur-md border border-white/20 transition-all duration-300 transform hover:-translate-y-0.5 text-center min-w-[170px]"
-            >
-              طلب سريع بالواتساب
-            </a>
-          </motion.div>
+              {/* Title block */}
+              <div className="hero-copy-block w-full">
+                <div className="flex items-center justify-center gap-2 mb-4 text-sky-200/90">
+                  <CleaverIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+                  <span className="text-sm tracking-[0.25em] opacity-80">★</span>
+                </div>
 
-          {/* Feature highlights badge block */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="grid grid-cols-3 gap-3 sm:gap-6 mt-16 pt-8 border-t border-white/10 max-w-2xl mx-auto"
-          >
-            <div className="flex flex-col items-center gap-2 text-center">
-              <div className="p-2 sm:p-2.5 bg-white/5 rounded-full text-brand-light">
-                <ShieldCheck className="w-5 h-5 text-sky-400" />
+                <h1 className="font-black leading-[1.15] mb-5">
+                  <span className="block text-[2rem] sm:text-5xl lg:text-[3.25rem] text-white drop-shadow-lg">
+                    لحم طازج
+                  </span>
+                  <span className="block text-[1.65rem] sm:text-4xl lg:text-5xl mt-2 hero-title-glow text-sky-300">
+                    جودة تستحق الثقة
+                  </span>
+                </h1>
+
+                <p className="text-sm sm:text-base text-slate-200/90 leading-relaxed max-w-md mx-auto px-1">
+                  نقدم لكم أجود أنواع اللحوم الطازجة مقطعة بعناية يومياً لتصل لكم بأفضل جودة
+                </p>
               </div>
-              <div>
-                <h4 className="font-extrabold text-xs sm:text-sm text-white">ضمان كامل</h4>
-                <p className="text-[10px] text-slate-400">رقابة بيطرية 100%</p>
+
+              {/* Feature icons — single organized row */}
+              <div className="hero-features-row w-full mt-8 sm:mt-10 mb-8 sm:mb-10">
+                {FEATURES.map(({ label, Icon }) => (
+                  <div key={label} className="hero-feature-item">
+                    <div className="hero-feature-icon mx-auto">
+                      <Icon className="w-5 h-5 text-white" strokeWidth={1.8} />
+                    </div>
+                    <p className="hero-feature-label">{label}</p>
+                  </div>
+                ))}
               </div>
-            </div>
-            <div className="flex flex-col items-center gap-2 text-center">
-              <div className="p-2 sm:p-2.5 bg-white/5 rounded-full text-brand-light">
-                <Truck className="w-5 h-5 text-sky-400" />
-              </div>
-              <div>
-                <h4 className="font-extrabold text-xs sm:text-sm text-white">توصيل منزلي</h4>
-                <p className="text-[10px] text-slate-400">حافظات مبردة آمنة</p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center gap-2 text-center">
-              <div className="p-2 sm:p-2.5 bg-white/5 rounded-full text-brand-light">
-                <Flame className="w-5 h-5 text-brand-gold" />
-              </div>
-              <div>
-                <h4 className="font-extrabold text-xs sm:text-sm text-white">طازج يومياً</h4>
-                <p className="text-[10px] text-slate-400">ذبح وتعبئة فورية</p>
-              </div>
-            </div>
-          </motion.div>
+
+              <a
+                href="#products"
+                className="hero-cta group inline-flex items-center gap-3 pl-3 pr-7 sm:pr-8 py-3 sm:py-3.5 rounded-full text-white font-extrabold text-sm sm:text-base shadow-lg shadow-sky-500/30 transition-transform duration-300 hover:-translate-y-0.5"
+              >
+                <span className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors">
+                  <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" />
+                </span>
+                تسوق الآن
+              </a>
+            </motion.div>
+
+            {/* Meat image — visual right in RTL */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.12 }}
+              className="relative order-2 lg:order-1 flex items-center justify-center min-h-[240px] sm:min-h-[300px] lg:min-h-[400px]"
+            >
+              <div className="hero-meat-glow absolute inset-0 scale-90 lg:scale-100" aria-hidden="true" />
+              <img
+                src="/images/hero (2).png"
+                alt="لحوم طازجة من مزارع الحفني"
+                className="relative z-10 w-full max-w-[280px] sm:max-w-[360px] lg:max-w-[440px] xl:max-w-[480px] h-auto object-contain drop-shadow-2xl"
+                referrerPolicy="no-referrer"
+              />
+            </motion.div>
+          </div>
         </div>
-      </div>
-
-      {/* Floating Scroll Indicator arrow */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20 hidden sm:block">
-        <motion.a
-          href="#about"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="w-10 h-10 rounded-full border border-white/20 bg-brand-dark/40 backdrop-blur-sm flex items-center justify-center text-white/50 hover:text-white hover:border-white/50 transition-colors"
-        >
-          <ArrowDown className="w-5 h-5" />
-        </motion.a>
       </div>
     </section>
   );
