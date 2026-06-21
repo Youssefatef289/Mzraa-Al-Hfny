@@ -3,7 +3,7 @@ import { Product, Review } from './types';
 export const CATEGORIES_INFO = [
   { id: 'meat', name: 'لحوم طازجة', count: 31, desc: 'لحوم بلدية متميزة من مزارعنا الخاصة تتغذى على أعلاف طبيعية 100% ويتم ذبحها في السلخانة الحكومية وتحت إشراف طبي كامل.' },
   { id: 'processed', name: 'مصنعات لحوم', count: 13, desc: 'مصنعات بلدية محضرة من اللحوم الطازجة والبهارات الطبيعية الفاخرة بدون الصويا ومخلفات اللحوم والمواد الحافظة الضارة.' },
-  { id: 'poultry', name: 'دواجن طازجة', count: 19, desc: 'دواجن ومربيات مزارعنا تتغذى على حبوب وأعلاف نباتية صافية، طازجة يومياً ومذبوحة ومنظفة بأعلى درجات التعقيم.' },
+  { id: 'poultry', name: 'دواجن طازجة', count: 21, desc: 'دواجن ومربيات مزارعنا تتغذى على حبوب وأعلاف نباتية صافية، طازجة يومياً ومذبوحة ومنظفة بأعلى درجات التعقيم.' },
   { id: 'dairy', name: 'الألبان والحلويات', count: 19, desc: 'ألبان وحلويات شرقية طازجة محضرة يومياً من حليب مزارعنا النقي؛ أرز باللبن، أم علي، مهلبية، كاستر، زبادي وأكثر.' },
   { id: 'cheese', name: 'الجبن والمشتقات', count: 47, desc: 'تشكيلة جبن بلدي ومستورد، لانشون، سلامي، بسطرمة، مش وقشطة — تُباع بالوزن: ثمن، ربع، نص أو كيلو.' },
 ] as const;
@@ -199,7 +199,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'poul-3', name: 'بانيه فريش', description: 'شرائح بانيه دجاج طازجة بسمك متساوٍ ونظيف، سهلة التتبيل والتحمير السريع.',
-    price: 225, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/بانيه  فريش 225م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true,
+    price: 190, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/بانيه  فريش 225م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true,
   },
   {
     id: 'poul-4', name: 'بانيه متبل جاهز', description: 'شرائح بانيه دجاج متبلة جاهزة بخلطة متوازنة، جاهزة للقلي مباشرة بطراوة فائقة.',
@@ -207,11 +207,11 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'poul-5', name: 'برجر فراخ', description: 'أقراص برجر دجاج طازجة متماسكة خالية من الصويا، مثالية للشواية والساندويتش.',
-    price: 220, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/برجر فراخ 220 م.ج.png`, category: 'poultry', rating: 4.7, isAvailable: true,
+    price: 200, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/برجر فراخ 220 م.ج.png`, category: 'poultry', rating: 4.7, isAvailable: true,
   },
   {
     id: 'poul-6', name: 'دبوس فريش', description: 'دبابيس دجاج طازجة ممتلئة ومنظفة بعناية، مناسبة للشوي والطبخ والقلي.',
-    price: 130, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/دبوس فريش 130 م.ج.png`, category: 'poultry', rating: 4.7, isAvailable: true,
+    price: 100, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/دبوس فريش 130 م.ج.png`, category: 'poultry', rating: 4.7, isAvailable: true,
   },
   {
     id: 'poul-7', name: 'دبوس متبل', description: 'دبابيس دجاج متبلة جاهزة بخلطة بهارات شهية، جاهزة للشوي أو الفرن مباشرة.',
@@ -219,19 +219,19 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'poul-8', name: 'سجق فراخ', description: 'سجق دجاج بلدي متبل بغلاف طبيعي، خيار خفيف وشهي للشوي والقلي.',
-    price: 220, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/سجق فراخ 220 م.ج.png`, category: 'poultry', rating: 4.7, isAvailable: true,
+    price: 200, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/سجق فراخ 200 م.ج.png.jpeg`, category: 'poultry', rating: 4.7, isAvailable: true,
   },
   {
     id: 'poul-9', name: 'شاورما فراخ متبلة', description: 'شرائح شاورما دجاج متبلة جاهزة بخلطة سرية، جاهزة للطهي بطعم المطاعم.',
-    price: 225, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/شاورما متبله 225 م.ج.png`, category: 'poultry', rating: 4.9, isAvailable: true, tag: 'جاهزة للطهي',
+    price: 200, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/شاورما متبله 225 م.ج.png`, category: 'poultry', rating: 4.9, isAvailable: true, tag: 'جاهزة للطهي',
   },
   {
     id: 'poul-10', name: 'شيش طاووق فريش', description: 'مكعبات صدور دجاج طازجة نظيفة، جاهزة لتتبيلها وشيها على الفحم.',
-    price: 200, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/شيش طاووق فريش 200 م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true,
+    price: 175, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/شيش طاووق فريش 200 م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true,
   },
   {
     id: 'poul-11', name: 'شيش طاووق متبل', description: 'مكعبات شيش طاووق دجاج متبلة جاهزة بالزبادي والبهارات، جاهزة للشوي مباشرة.',
-    price: 200, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/شيش طاووق متبل 200 م.ج.png`, category: 'poultry', rating: 4.9, isAvailable: true, tag: 'جاهز للشوي',
+    price: 175, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/شيش طاووق متبل 200 م.ج.png`, category: 'poultry', rating: 4.9, isAvailable: true, tag: 'جاهز للشوي',
   },
   {
     id: 'poul-12', name: 'فراخ بالكيلو (بعد التنظيف)', description: 'دجاج فريش بالكيلو منظف بالكامل وجاهز للطبخ، طازج يومياً وبأعلى تعقيم.',
@@ -247,23 +247,31 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'poul-15', name: 'كفتة فراخ', description: 'كفتة دجاج متبلة جاهزة للشوي أو القلي، خفيفة وشهية ومناسبة للأطفال.',
-    price: 220, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/كفته فراخ 220 م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true,
+    price: 200, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/كفته فراخ 220 م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true,
   },
   {
     id: 'poul-16', name: 'أوراك فريش', description: 'أوراك دجاج طازجة سميكة ممتلئة ومنظفة بعناية، مناسبة للشوي والطبخ.',
-    price: 125, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/وراك فريش 125 م.ج.png`, category: 'poultry', rating: 4.7, isAvailable: true,
+    price: 95, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/وراك فريش 125 م.ج.png`, category: 'poultry', rating: 4.7, isAvailable: true,
   },
   {
     id: 'poul-17', name: 'أوراك متبلة', description: 'أوراك دجاج متبلة جاهزة بخلطة بهارات شهية، جاهزة للشوي أو الفرن مباشرة.',
-    price: 125, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/وراك متبل  125 م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true,
+    price: 95, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/وراك متبل  125 م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true,
   },
   {
     id: 'poul-18', name: 'تشيكن جريل', description: 'شرائح تشيكن جريل دجاج طازجة متبلة، جاهزة للشوي أو التحمير بسرعة وبطراوة.',
-    price: 225, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/تشكين جريل 225.jpeg`, category: 'poultry', rating: 4.9, isAvailable: true, tag: 'جاهز للشوي',
+    price: 240, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/تشكين جريل 225.jpeg`, category: 'poultry', rating: 4.9, isAvailable: true, tag: 'جاهز للشوي',
   },
   {
     id: 'poul-19', name: 'بفتيك متبل', description: 'شرائح بفتيك دجاج متبلة جاهزة بخلطة بهارات متوازنة، جاهزة للطهي مباشرة.',
     price: 450, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/بفتيك متبل 450.jpeg`, category: 'poultry', rating: 4.8, isAvailable: true, tag: 'جاهز للطهي',
+  },
+  {
+    id: 'poul-20', name: 'تشكين رستو', description: 'تشكين رستو دجاج متبل محضر بعناية، جاهز للفرن أو الشوي بطعم غني ومميز.',
+    price: 280, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/تشكين رستو 280.jpeg`, category: 'poultry', rating: 4.9, isAvailable: true, tag: 'جاهز للفرن',
+  },
+  {
+    id: 'poul-21', name: 'مسحب', description: 'مسحب دجاج متبل جاهز، مقرمش ولذيذ ومثالي للوجبات السريعة والأطفال.',
+    price: 220, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/مسحب 220 .jpeg`, category: 'poultry', rating: 4.8, isAvailable: true, tag: 'جاهز للطهي',
   },
 
   // ===== قسم الألبان والحلويات =====
