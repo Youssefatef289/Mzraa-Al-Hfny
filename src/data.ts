@@ -214,7 +214,7 @@ export const PRODUCTS: Product[] = [
     price: 100, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/دبوس فريش 130 م.ج.png`, category: 'poultry', rating: 4.7, isAvailable: true,
   },
   {
-    id: 'poul-7', name: 'دبوس متبل', description: 'دبابيس دجاج متبلة جاهزة بخلطة بهارات شهية، جاهزة للشوي أو الفرن مباشرة.',
+    id: 'poul-7', name: ' دبوس متبل تندوري', description: 'دبابيس دجاج متبلة جاهزة بخلطة بهارات شهية، جاهزة للشوي أو الفرن مباشرة.',
     price: 130, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/دبوس متبل 130 م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true,
   },
   {
@@ -234,11 +234,11 @@ export const PRODUCTS: Product[] = [
     price: 175, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/شيش طاووق متبل 200 م.ج.png`, category: 'poultry', rating: 4.9, isAvailable: true, tag: 'جاهز للشوي',
   },
   {
-    id: 'poul-12', name: 'فراخ بالكيلو (بعد التنظيف)', description: 'دجاج فريش بالكيلو منظف بالكامل وجاهز للطبخ، طازج يومياً وبأعلى تعقيم.',
+    id: 'poul-12', name: 'فراخ صندوق  فريش', description: 'دجاج فريش بالكيلو منظف بالكامل وجاهز للطبخ، طازج يومياً وبأعلى تعقيم.',
     price: 135, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/فراخ بالكيلو بعد التنظيف سعر الكيلو 135 م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true, minQuantity: 1, quantityStep: 1,
   },
   {
-    id: 'poul-13', name: 'فراخ كاملة متبلة بالكيلو', description: 'فراخ كاملة متبلة جاهزة للفرن أو الشوي بخلطة بهارات شهية، طازجة يومياً.',
+    id: 'poul-13', name: 'فراخ  متبلة برتقال صندوق', description: 'فراخ كاملة متبلة جاهزة للفرن أو الشوي بخلطة بهارات شهية، طازجة يومياً.',
     price: 135, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/فراخ كامله متبله بالكيلو  سعر الكيلو 135 م.ج.png`, category: 'poultry', rating: 4.9, isAvailable: true, minQuantity: 1, quantityStep: 1, tag: 'جاهزة للفرن',
   },
   {
@@ -272,6 +272,10 @@ export const PRODUCTS: Product[] = [
   {
     id: 'poul-21', name: 'مسحب', description: 'مسحب دجاج متبل جاهز، مقرمش ولذيذ ومثالي للوجبات السريعة والأطفال.',
     price: 220, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/مسحب 220 .jpeg`, category: 'poultry', rating: 4.8, isAvailable: true, tag: 'جاهز للطهي',
+  },
+  {
+    id: 'poul-22', name: 'فرخه متبله تندوري', description: 'فرخة كاملة متبلة تندوري جاهزة للفرن أو الشوي بخلطة بهارات تندوري شهية، طازجة يومياً.',
+    price: 135, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/فرخه متبله تندوري 135.jpeg`, category: 'poultry', rating: 4.9, isAvailable: true, minQuantity: 1, quantityStep: 1, tag: 'جاهزة للفرن',
   },
 
   // ===== قسم الألبان والحلويات =====
