@@ -1,7 +1,7 @@
 import { Product, Review } from './types';
 
 export const CATEGORIES_INFO = [
-  { id: 'meat', name: 'لحوم طازجة', count: 31, desc: 'لحوم بلدية متميزة من مزارعنا الخاصة تتغذى على أعلاف طبيعية 100% ويتم ذبحها في السلخانة الحكومية وتحت إشراف طبي كامل.' },
+  { id: 'meat', name: 'لحوم طازجة', count: 30, desc: 'لحوم بلدية متميزة من مزارعنا الخاصة تتغذى على أعلاف طبيعية 100% ويتم ذبحها في السلخانة الحكومية وتحت إشراف طبي كامل.' },
   { id: 'processed', name: 'مصنعات لحوم', count: 13, desc: 'مصنعات بلدية محضرة من اللحوم الطازجة والبهارات الطبيعية الفاخرة بدون الصويا ومخلفات اللحوم والمواد الحافظة الضارة.' },
   { id: 'poultry', name: 'دواجن طازجة', count: 21, desc: 'دواجن ومربيات مزارعنا تتغذى على حبوب وأعلاف نباتية صافية، طازجة يومياً ومذبوحة ومنظفة بأعلى درجات التعقيم.' },
   { id: 'dairy', name: 'الألبان والحلويات', count: 19, desc: 'ألبان وحلويات شرقية طازجة محضرة يومياً من حليب مزارعنا النقي؛ أرز باللبن، أم علي، مهلبية، كاستر، زبادي وأكثر.' },
@@ -77,14 +77,6 @@ export const PRODUCTS: Product[] = [
     price: 480, unit: 'كيلو جرام', image: `${IMG}/قسم اللحوم/كباب حله احمر 480 م.ج.png`, category: 'meat', rating: 4.9, isAvailable: true,
   },
   {
-    id: 'meat-17', name: 'كبدة بلدي صافي', description: 'كبدة بقري بلدي طازجة تذبح يومياً، غنية بالحديد وتُقطّع حسب رغبتك.',
-    price: 500, unit: 'كيلو جرام', image: `${IMG}/قسم اللحوم/كبده بلدى صافى 500 م.ج.png`, category: 'meat', rating: 5.0, isAvailable: true, tag: 'طازجة يومياً',
-  },
-  {
-    id: 'meat-18', name: 'كبدة وكلاوي', description: 'تشكيلة كبدة وكلاوي بقري طازجة، مثالية للمشاوي والوجبات الغنية بالبروتين.',
-    price: 475, unit: 'كيلو جرام', image: `${IMG}/قسم اللحوم/كبده و كلاوى 475 م.ج.png`, category: 'meat', rating: 4.8, isAvailable: true,
-  },
-  {
     id: 'meat-19', name: 'كوارع', description: 'كوارع بقري طازجة منظفة بعناية، أساس طبق الكوارع والفتة بمرق طبيعي غني.',
     price: 300, unit: 'كيلو جرام', image: `${IMG}/قسم اللحوم/كوارع 300 م.ج.png`, category: 'meat', rating: 4.7, isAvailable: true,
   },
@@ -132,6 +124,10 @@ export const PRODUCTS: Product[] = [
   {
     id: 'meat-31', name: 'عرق روستو', description: 'عرق روستو بقري فاخر طري، مثالي للستيك والشواء السريع بنكهة غنية ومتوازنة.',
     price: 480, unit: 'كيلو جرام', image: `${IMG}/قسم اللحوم/عرق روستو 480.jpeg`, category: 'meat', rating: 4.9, isAvailable: true,
+  },
+  {
+    id: 'meat-32', name: 'بفتيك متبل', description: 'شرائح بفتيك لحم بقري متبلة جاهزة بخلطة بهارات متوازنة، جاهزة للطهي مباشرة.',
+    price: 450, unit: 'كيلو جرام', image: `${IMG}/قسم اللحوم/بفتيك متبل 450.jpeg`, category: 'meat', rating: 4.8, isAvailable: true, tag: 'جاهز للطهي',
   },
 
   // ===== قسم مصنعات اللحوم =====
@@ -215,7 +211,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'poul-7', name: ' دبوس متبل تندوري', description: 'دبابيس دجاج متبلة جاهزة بخلطة بهارات شهية، جاهزة للشوي أو الفرن مباشرة.',
-    price: 130, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/دبوس متبل 130 م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true,
+    price: 100, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/دبوس متبل 130 م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true,
   },
   {
     id: 'poul-8', name: 'سجق فراخ', description: 'سجق دجاج بلدي متبل بغلاف طبيعي، خيار خفيف وشهي للشوي والقلي.',
@@ -235,15 +231,15 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'poul-12', name: 'فراخ صندوق  فريش', description: 'دجاج فريش بالكيلو منظف بالكامل وجاهز للطبخ، طازج يومياً وبأعلى تعقيم.',
-    price: 135, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/فراخ بالكيلو بعد التنظيف سعر الكيلو 135 م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true, minQuantity: 1, quantityStep: 1,
+    price: 100, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/فراخ صندوق فريش 100.jpeg`, category: 'poultry', rating: 4.8, isAvailable: true, minQuantity: 1, quantityStep: 1,
   },
   {
     id: 'poul-13', name: 'فراخ  متبلة برتقال صندوق', description: 'فراخ كاملة متبلة جاهزة للفرن أو الشوي بخلطة بهارات شهية، طازجة يومياً.',
-    price: 135, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/فراخ كامله متبله بالكيلو  سعر الكيلو 135 م.ج.png`, category: 'poultry', rating: 4.9, isAvailable: true, minQuantity: 1, quantityStep: 1, tag: 'جاهزة للفرن',
+    price: 100, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/فراخ كامله متبله بالكيلو  سعر الكيلو 135 م.ج.png`, category: 'poultry', rating: 4.9, isAvailable: true, minQuantity: 1, quantityStep: 1, tag: 'جاهزة للفرن',
   },
   {
     id: 'poul-14', name: 'كبدة فراخ', description: 'كبدة دجاج طازجة منظفة، غنية بالحديد ومثالية للقلي السريع بالبهارات.',
-    price: 115, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/كبده 115 م.ج.png`, category: 'poultry', rating: 4.7, isAvailable: true,
+    price: 100, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/كبده 115 م.ج.png`, category: 'poultry', rating: 4.7, isAvailable: true,
   },
   {
     id: 'poul-15', name: 'كفتة فراخ', description: 'كفتة دجاج متبلة جاهزة للشوي أو القلي، خفيفة وشهية ومناسبة للأطفال.',
@@ -262,10 +258,6 @@ export const PRODUCTS: Product[] = [
     price: 240, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/تشكين جريل 225.jpeg`, category: 'poultry', rating: 4.9, isAvailable: true, tag: 'جاهز للشوي',
   },
   {
-    id: 'poul-19', name: 'بفتيك متبل', description: 'شرائح بفتيك دجاج متبلة جاهزة بخلطة بهارات متوازنة، جاهزة للطهي مباشرة.',
-    price: 450, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/بفتيك متبل 450.jpeg`, category: 'poultry', rating: 4.8, isAvailable: true, tag: 'جاهز للطهي',
-  },
-  {
     id: 'poul-20', name: 'تشكين رستو', description: 'تشكين رستو دجاج متبل محضر بعناية، جاهز للفرن أو الشوي بطعم غني ومميز.',
     price: 280, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/تشكين رستو 280.jpeg`, category: 'poultry', rating: 4.9, isAvailable: true, tag: 'جاهز للفرن',
   },
@@ -275,7 +267,11 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'poul-22', name: 'فرخه متبله تندوري', description: 'فرخة كاملة متبلة تندوري جاهزة للفرن أو الشوي بخلطة بهارات تندوري شهية، طازجة يومياً.',
-    price: 135, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/فرخه متبله تندوري 135.jpeg`, category: 'poultry', rating: 4.9, isAvailable: true, minQuantity: 1, quantityStep: 1, tag: 'جاهزة للفرن',
+    price: 100, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/فرخه متبله تندوري 135.jpeg`, category: 'poultry', rating: 4.9, isAvailable: true, minQuantity: 1, quantityStep: 1, tag: 'جاهزة للفرن',
+  },
+  {
+    id: 'poul-23', name: 'كوردن بلو', description: 'شرائح كوردن بلو دجاج محشوة بالجبن واللحم المدخن ومغطاة بفتات الخبز المقرمش، جاهزة للقلي أو الفرن.',
+    price: 230, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/كوردن بلو 230.jpeg`, category: 'poultry', rating: 4.9, isAvailable: true, tag: 'جاهز للطهي',
   },
 
   // ===== قسم الألبان والحلويات =====
