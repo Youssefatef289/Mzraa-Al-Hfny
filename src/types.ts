@@ -9,6 +9,7 @@ export interface Product {
   rating: number;
   isAvailable: boolean;
   tag?: string; // e.g. "بلدي طازج", "مميز"
+  originalPrice?: number; // السعر قبل العرض
   minQuantity?: number; // minimum weight/count (e.g. whole chicken from 1 kg)
   quantityStep?: number; // increment step for weight products
 }

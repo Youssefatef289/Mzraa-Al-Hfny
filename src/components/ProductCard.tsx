@@ -73,7 +73,9 @@ export default function ProductCard({
           </div>
         )}
         {product.tag && product.isAvailable && (
-          <span className="absolute top-3 right-3 bg-brand-medium text-white text-[11px] font-extrabold py-1 px-2.5 rounded-full shadow-sm">
+          <span className={`absolute top-3 right-3 text-white text-[11px] font-extrabold py-1 px-2.5 rounded-full shadow-sm ${
+            product.tag === 'عرض' ? 'bg-red-500' : 'bg-brand-medium'
+          }`}>
             {product.tag}
           </span>
         )}
@@ -100,14 +102,31 @@ export default function ProductCard({
 
         <div>
           <div className="flex items-baseline justify-between mb-4">
-            <span className="text-2xl font-black text-brand-medium">
-              {isCheese ? lineTotal : product.price}{' '}
-              <span className="text-xs font-bold text-slate-500">ج.م</span>
-            </span>
-            {isCheese && (
-              <span className="text-[10px] font-bold text-slate-400">
-                {product.price} ج.م / كجم
+            <div className="flex flex-col gap-0.5">
+              <span className="text-2xl font-black text-brand-medium">
+                {isCheese ? lineTotal : product.price}{' '}
+                <span className="text-xs font-bold text-slate-500">ج.م</span>
               </span>
+              {product.originalPrice && (
+                <span className="text-sm font-bold text-slate-400 line-through">
+                  {isCheese
+                    ? Math.round(product.originalPrice * activeQty * 100) / 100
+                    : product.originalPrice}{' '}
+                  <span className="text-[10px]">ج.م</span>
+                </span>
+              )}
+            </div>
+            {isCheese && (
+              <div className="flex flex-col items-end gap-0.5">
+                <span className="text-[10px] font-bold text-slate-400">
+                  {product.price} ج.م / كجم
+                </span>
+                {product.originalPrice && (
+                  <span className="text-[10px] font-bold text-slate-400 line-through">
+                    {product.originalPrice} ج.م / كجم
+                  </span>
+                )}
+              </div>
             )}
             {quantityInCart > 0 && (
               <span className="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">

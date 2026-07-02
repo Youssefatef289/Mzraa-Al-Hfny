@@ -414,8 +414,8 @@ export const PRODUCTS: Product[] = [
     price: 110, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه شيدر مصرى ١١٠.jpg`, category: 'cheese', rating: 4.9, isAvailable: true, tag: 'اقتصادي',
   },
   {
-    id: 'cheese-16', name: 'جبنه فلمنك فريكو مستورده', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
-    price: 800, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه فلمنك فريكو مستورده.jpeg`, category: 'cheese', rating: 4.5, isAvailable: true, tag: 'فاخر',
+    id: 'cheese-16', name: 'جبنه فلمنك فريكو مستورده', description: 'جبنة فلمنك فريكو مستوردة فاخرة، نكهة غنية ومثالية للساندويتشات والوجبات.',
+    price: 675, originalPrice: 800, unit: 'كيلو جرام', image: `${IMG}/قسم الجبن/جبنه فلامنك .jpeg`, category: 'cheese', rating: 4.5, isAvailable: true, tag: 'عرض',
   },
   {
     id: 'cheese-17', name: 'جبنه فيومى', description: 'جبنة طازجة فاخرة تُباع بالوزن، اختر الكمية المناسبة لك.',
