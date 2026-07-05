@@ -1,11 +1,12 @@
 import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Lock, Mail, LogIn } from 'lucide-react';
+import { Lock, User, LogIn } from 'lucide-react';
 import { supabase } from '../../lib/supabaseClient';
+import { usernameToAuthEmail } from '../../lib/adminAuth';
 
 export default function AdminLogin() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -15,15 +16,18 @@ export default function AdminLogin() {
     setError(null);
     setLoading(true);
 
+    const email = usernameToAuthEmail(username);
+
     const { error: signInError } = await supabase.auth.signInWithPassword({
-      email: email.trim(),
+      email,
       password,
     });
 
     setLoading(false);
 
     if (signInError) {
-      setError('بيانات الدخول غير صحيحة. تأكد من البريد وكلمة المرور.');
+      console.error('Admin login error:', signInError.message);
+      setError('بيانات الدخول غير صحيحة. تأكد من اسم المستخدم وكلمة المرور.');
       return;
     }
 
@@ -56,20 +60,20 @@ export default function AdminLogin() {
           )}
 
           <div>
-            <label htmlFor="admin-email" className="block text-xs font-extrabold text-slate-600 mb-2">
-              البريد الإلكتروني
+            <label htmlFor="admin-username" className="block text-xs font-extrabold text-slate-600 mb-2">
+              اسم المستخدم
             </label>
             <div className="relative">
-              <Mail className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <User className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input
-                id="admin-email"
-                type="email"
+                id="admin-username"
+                type="text"
                 required
-                autoComplete="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                autoComplete="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 className="w-full pr-10 pl-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold outline-none focus:border-brand-medium focus:ring-4 focus:ring-brand-light transition-all"
-                placeholder="admin@example.com"
+                placeholder="adminAlhfny"
                 dir="ltr"
               />
             </div>

@@ -20,8 +20,10 @@ const secretKey =
   process.env.SUPABASE_SECRET_KEY ||
   process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin.alkhafany@gmail.com';
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'MzraaAdmin2026!Secure';
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'adminAlhfny';
+const ADMIN_EMAIL =
+  process.env.ADMIN_EMAIL || `${ADMIN_USERNAME}@mzraa-alhfny.com`;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Alhfny@123';
 const BUCKET = 'product-images';
 
 if (!supabaseUrl || !secretKey) {
