@@ -167,10 +167,10 @@ export const PRODUCTS: Product[] = [
     id: 'proc-9', name: 'عرض 5 رغيف حواوشي', description: 'عرض اقتصادي مكوّن من 5 أرغفة حواوشي محشوة باللحم البلدي المتبل، جاهزة للفرن.',
     price: 200, unit: 'العرض', image: `${IMG}/قسم مصنعات اللحوم/عرض 5 رغيف حواوشى 200م.ج.png`, category: 'processed', rating: 4.9, isAvailable: true, tag: 'عرض موفّر',
   },
-  {
-    id: 'proc-10', name: 'كبدة بلدي متبلة', description: 'كبدة بقري بلدي متبلة جاهزة على الطريقة الإسكندرانية بالفلفل والثوم والتوابل.',
-    price: 500, unit: 'كيلو جرام', image: `${IMG}/قسم مصنعات اللحوم/كبده بلدى 500 م.ج.png`, category: 'processed', rating: 4.8, isAvailable: true,
-  },
+  // {
+  //   id: 'proc-10', name: 'كبدة بلدي متبلة', description: 'كبدة بقري بلدي متبلة جاهزة على الطريقة الإسكندرانية بالفلفل والثوم والتوابل.',
+  //   price: 500, unit: 'كيلو جرام', image: `${IMG}/قسم مصنعات اللحوم/كبده بلدى 500 م.ج.png`, category: 'processed', rating: 4.8, isAvailable: true,
+  // },
   {
     id: 'proc-11', name: 'كفتة أرز', description: 'كفتة لحم بلدي ممزوجة بالأرز والبهارات، جاهزة للطهي بالصلصة على طريقة البيت.',
     price: 350, unit: 'كيلو جرام', image: `${IMG}/قسم مصنعات اللحوم/كفته أرز 350م.ج.png`, category: 'processed', rating: 4.7, isAvailable: true,

@@ -2,7 +2,8 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Search, RefreshCw, Layers, ChevronDown } from 'lucide-react';
 import { Product } from '../types';
 import { getQtyInCartForProduct } from '../cartUtils';
-import { PRODUCTS, CATEGORIES_INFO } from '../data';
+import { CATEGORIES_INFO } from '../data';
+import { useProductsContext } from '../context/ProductsProvider';
 import ProductCard from './ProductCard';
 import { motion, AnimatePresence, LayoutGroup } from 'motion/react';
 
@@ -20,6 +21,30 @@ type CategoryFilter = 'all' | 'meat' | 'processed' | 'poultry' | 'dairy' | 'chee
 const LOAD_STEP = 8;
 const HOME_ROW_SIZE = 4;
 
+function ProductSkeleton({ singleRow }: { singleRow: boolean }) {
+  const count = singleRow ? HOME_ROW_SIZE : 6;
+  return (
+    <div
+      className={
+        singleRow
+          ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10'
+          : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10'
+      }
+    >
+      {Array.from({ length: count }).map((_, i) => (
+        <div key={i} className="bg-white rounded-3xl border border-slate-100 overflow-hidden animate-pulse">
+          <div className="aspect-[4/3] bg-slate-200" />
+          <div className="p-5 space-y-3">
+            <div className="h-4 bg-slate-200 rounded w-3/4 mr-auto" />
+            <div className="h-3 bg-slate-100 rounded w-full" />
+            <div className="h-8 bg-slate-200 rounded-xl w-1/2 mr-auto mt-4" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 const layoutSpring = { type: 'spring' as const, stiffness: 280, damping: 28 };
 const expandSpring = { type: 'spring' as const, stiffness: 320, damping: 26 };
 
@@ -30,6 +55,7 @@ export default function ProductCatalog({
   initialVisible = 4,
   singleRow = false,
 }: ProductCatalogProps) {
+  const { products, loading } = useProductsContext();
   const INITIAL_VISIBLE = initialVisible;
   const loadStep = singleRow ? HOME_ROW_SIZE : LOAD_STEP;
   const [searchQuery, setSearchQuery] = useState('');
@@ -46,7 +72,7 @@ export default function ProductCatalog({
 
   // Filter logic (no sorting)
   const filteredProducts = useMemo(() => {
-    let result = [...PRODUCTS];
+    let result = [...products];
 
     if (activeCategory !== 'all') {
       result = result.filter((p) => p.category === activeCategory);
@@ -62,7 +88,7 @@ export default function ProductCatalog({
     }
 
     return result;
-  }, [searchQuery, activeCategory]);
+  }, [searchQuery, activeCategory, products]);
 
   // Reset visible cards whenever the filter changes (back to a single row).
   useEffect(() => {
@@ -210,7 +236,9 @@ export default function ProductCatalog({
         </AnimatePresence>
 
         {/* Products Grid / Row */}
-        {filteredProducts.length > 0 ? (
+        {loading ? (
+          <ProductSkeleton singleRow={singleRow} />
+        ) : filteredProducts.length > 0 ? (
           <>
             <LayoutGroup>
               <motion.div
