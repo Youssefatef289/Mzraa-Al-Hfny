@@ -22,7 +22,7 @@ const secretKey =
 
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'adminAlhfny';
 const ADMIN_EMAIL =
-  process.env.ADMIN_EMAIL || `${ADMIN_USERNAME}@mzraa-alhfny.com`;
+  process.env.ADMIN_EMAIL || `${ADMIN_USERNAME.toLowerCase()}@mzraa-alhfny.com`;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Alhfny@123';
 const BUCKET = 'product-images';
 

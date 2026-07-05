@@ -12,7 +12,7 @@ const secretKey =
 
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'adminAlhfny';
 const ADMIN_EMAIL =
-  process.env.ADMIN_EMAIL || `${ADMIN_USERNAME}@mzraa-alhfny.com`;
+  process.env.ADMIN_EMAIL || `${ADMIN_USERNAME.toLowerCase()}@mzraa-alhfny.com`;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Alhfny@123';
 
 const LEGACY_EMAILS = ['admin.alkhafany@gmail.com'];
@@ -26,11 +26,24 @@ const supabase = createClient(supabaseUrl, secretKey, {
   auth: { autoRefreshToken: false, persistSession: false },
 });
 
-async function main() {
-  const { data: list, error: listError } = await supabase.auth.admin.listUsers();
-  if (listError) throw new Error(`List users: ${listError.message}`);
+async function listAllUsers() {
+  const users = [];
+  let page = 1;
+  const perPage = 200;
 
-  const existing = list.users.find((u) => u.email === ADMIN_EMAIL);
+  while (true) {
+    const { data, error } = await supabase.auth.admin.listUsers({ page, perPage });
+    if (error) throw new Error(`List users: ${error.message}`);
+    users.push(...data.users);
+    if (data.users.length < perPage) break;
+    page += 1;
+  }
+
+  return users;
+}
+
+async function upsertAdmin(users) {
+  const existing = users.find((u) => u.email === ADMIN_EMAIL);
 
   if (existing) {
     const { error } = await supabase.auth.admin.updateUserById(existing.id, {
@@ -41,20 +54,41 @@ async function main() {
     });
     if (error) throw new Error(`Update admin: ${error.message}`);
     console.log(`✓ Admin updated: ${ADMIN_USERNAME} (${ADMIN_EMAIL})`);
-  } else {
-    const { data, error } = await supabase.auth.admin.createUser({
-      email: ADMIN_EMAIL,
+    return;
+  }
+
+  const { data, error } = await supabase.auth.admin.createUser({
+    email: ADMIN_EMAIL,
+    password: ADMIN_PASSWORD,
+    email_confirm: true,
+    user_metadata: { username: ADMIN_USERNAME, role: 'admin' },
+  });
+
+  if (error?.message?.includes('already been registered')) {
+    const refreshed = await listAllUsers();
+    const found = refreshed.find((u) => u.email === ADMIN_EMAIL);
+    if (!found) throw error;
+    const { error: updateError } = await supabase.auth.admin.updateUserById(found.id, {
       password: ADMIN_PASSWORD,
       email_confirm: true,
       user_metadata: { username: ADMIN_USERNAME, role: 'admin' },
     });
-    if (error) throw new Error(`Create admin: ${error.message}`);
-    console.log(`✓ Admin created: ${ADMIN_USERNAME} (id: ${data.user.id})`);
+    if (updateError) throw new Error(`Update admin: ${updateError.message}`);
+    console.log(`✓ Admin password reset: ${ADMIN_USERNAME}`);
+    return;
   }
+
+  if (error) throw new Error(`Create admin: ${error.message}`);
+  console.log(`✓ Admin created: ${ADMIN_USERNAME} (id: ${data.user.id})`);
+}
+
+async function main() {
+  const users = await listAllUsers();
+  await upsertAdmin(users);
 
   for (const legacyEmail of LEGACY_EMAILS) {
     if (legacyEmail === ADMIN_EMAIL) continue;
-    const legacy = list.users.find((u) => u.email === legacyEmail);
+    const legacy = users.find((u) => u.email === legacyEmail);
     if (legacy) {
       await supabase.auth.admin.deleteUser(legacy.id);
       console.log(`✓ Removed legacy admin: ${legacyEmail}`);

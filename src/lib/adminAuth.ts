@@ -6,6 +6,6 @@ export const ADMIN_AUTH_EMAIL = `${ADMIN_USERNAME}@${ADMIN_AUTH_DOMAIN}`;
 export function usernameToAuthEmail(username: string): string {
   const trimmed = username.trim();
   if (!trimmed) return '';
-  if (trimmed.includes('@')) return trimmed;
-  return `${trimmed}@${ADMIN_AUTH_DOMAIN}`;
+  if (trimmed.includes('@')) return trimmed.toLowerCase();
+  return `${trimmed.toLowerCase()}@${ADMIN_AUTH_DOMAIN}`;
 }
