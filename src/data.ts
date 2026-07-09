@@ -255,7 +255,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'poul-17', name: 'أوراك متبلة', description: 'أوراك دجاج متبلة جاهزة بخلطة بهارات شهية، جاهزة للشوي أو الفرن مباشرة.',
-    price: 95, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/وراك متبل  125 م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true,
+    price: 105, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/وراك متبل  125 م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true,
   },
   {
     id: 'poul-18', name: 'تشيكن جريل', description: 'شرائح تشيكن جريل دجاج طازجة متبلة، جاهزة للشوي أو التحمير بسرعة وبطراوة.',
