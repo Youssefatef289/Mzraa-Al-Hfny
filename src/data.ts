@@ -199,11 +199,11 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'poul-3', name: 'بانيه فريش', description: 'شرائح بانيه دجاج طازجة بسمك متساوٍ ونظيف، سهلة التتبيل والتحمير السريع.',
-    price: 190, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/بانيه  فريش 225م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true,
+    price: 200, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/بانيه  فريش 225م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true,
   },
   {
     id: 'poul-4', name: 'بانيه متبل جاهز', description: 'شرائح بانيه دجاج متبلة جاهزة بخلطة متوازنة، جاهزة للقلي مباشرة بطراوة فائقة.',
-    price: 190, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/بانيه متبل جاهز 190.jpeg`, category: 'poultry', rating: 4.9, isAvailable: true, tag: 'سهل وسريع',
+    price: 200, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/بانيه متبل جاهز 190.jpeg`, category: 'poultry', rating: 4.9, isAvailable: true, tag: 'سهل وسريع',
   },
   {
     id: 'poul-5', name: 'برجر فراخ', description: 'أقراص برجر دجاج طازجة متماسكة خالية من الصويا، مثالية للشواية والساندويتش.',
@@ -211,11 +211,11 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'poul-6', name: 'دبوس فريش', description: 'دبابيس دجاج طازجة ممتلئة ومنظفة بعناية، مناسبة للشوي والطبخ والقلي.',
-    price: 100, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/دبوس فريش 130 م.ج.png`, category: 'poultry', rating: 4.7, isAvailable: true,
+    price: 110, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/دبوس فريش 130 م.ج.png`, category: 'poultry', rating: 4.7, isAvailable: true,
   },
   {
     id: 'poul-7', name: ' دبوس متبل تندوري', description: 'دبابيس دجاج متبلة جاهزة بخلطة بهارات شهية، جاهزة للشوي أو الفرن مباشرة.',
-    price: 100, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/دبوس متبل 130 م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true,
+    price: 110, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/دبوس متبل 130 م.ج.png`, category: 'poultry', rating: 4.8, isAvailable: true,
   },
   {
     id: 'poul-8', name: 'سجق فراخ', description: 'سجق دجاج بلدي متبل بغلاف طبيعي، خيار خفيف وشهي للشوي والقلي.',
@@ -235,11 +235,11 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'poul-12', name: 'فراخ صندوق  فريش', description: 'دجاج فريش بالكيلو منظف بالكامل وجاهز للطبخ، طازج يومياً وبأعلى تعقيم.',
-    price: 100, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/فراخ صندوق فريش 100.jpeg`, category: 'poultry', rating: 4.8, isAvailable: true, minQuantity: 1, quantityStep: 1,
+    price: 110, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/فراخ صندوق فريش 100.jpeg`, category: 'poultry', rating: 4.8, isAvailable: true, minQuantity: 1, quantityStep: 1,
   },
   {
     id: 'poul-13', name: 'فراخ  متبلة برتقال صندوق', description: 'فراخ كاملة متبلة جاهزة للفرن أو الشوي بخلطة بهارات شهية، طازجة يومياً.',
-    price: 100, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/فراخ كامله متبله بالكيلو  سعر الكيلو 135 م.ج.png`, category: 'poultry', rating: 4.9, isAvailable: true, minQuantity: 1, quantityStep: 1, tag: 'جاهزة للفرن',
+    price: 110, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/فراخ كامله متبله بالكيلو  سعر الكيلو 135 م.ج.png`, category: 'poultry', rating: 4.9, isAvailable: true, minQuantity: 1, quantityStep: 1, tag: 'جاهزة للفرن',
   },
   {
     id: 'poul-14', name: 'كبدة فراخ', description: 'كبدة دجاج طازجة منظفة، غنية بالحديد ومثالية للقلي السريع بالبهارات.',
@@ -251,7 +251,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'poul-16', name: 'أوراك فريش', description: 'أوراك دجاج طازجة سميكة ممتلئة ومنظفة بعناية، مناسبة للشوي والطبخ.',
-    price: 95, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/وراك فريش 125 م.ج.png`, category: 'poultry', rating: 4.7, isAvailable: true,
+    price: 105, unit: 'كيلو جرام', image: `${IMG}/قسم الدواجن/وراك فريش 125 م.ج.png`, category: 'poultry', rating: 4.7, isAvailable: true,
   },
   {
     id: 'poul-17', name: 'أوراك متبلة', description: 'أوراك دجاج متبلة جاهزة بخلطة بهارات شهية، جاهزة للشوي أو الفرن مباشرة.',
