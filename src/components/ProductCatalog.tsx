@@ -81,6 +81,30 @@ export default function ProductCatalog({
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
   const [animateFromIndex, setAnimateFromIndex] = useState(0);
   const gridRef = useRef<HTMLDivElement>(null);
+  const tabsScrollRef = useRef<HTMLDivElement>(null);
+  const tabBtnRefs = useRef<Partial<Record<CategoryFilter, HTMLButtonElement | null>>>({});
+
+  // Keep the active tab visible/centered when navigating forward or back
+  useEffect(() => {
+    const container = tabsScrollRef.current;
+    const activeBtn = tabBtnRefs.current[activeCategory];
+    if (!container || !activeBtn) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const btnRect = activeBtn.getBoundingClientRect();
+    const offset =
+      btnRect.left -
+      containerRect.left -
+      containerRect.width / 2 +
+      btnRect.width / 2 +
+      container.scrollLeft;
+
+    container.scrollTo({ left: offset, behavior: 'smooth' });
+  }, [activeCategory]);
+
+  const selectCategory = (id: CategoryFilter) => {
+    setActiveCategory(id);
+  };
 
   // Find info about active category
   const activeCategoryInfo = useMemo(() => {
@@ -120,7 +144,7 @@ export default function ProductCatalog({
 
   const handleResetFilters = () => {
     setSearchQuery('');
-    setActiveCategory('all');
+    selectCategory('all');
   };
 
   const handleShowMore = () => {
@@ -184,7 +208,10 @@ export default function ProductCatalog({
 
         {/* Category Tabs — scrollable chips on mobile, centered on desktop */}
         <div className="mb-4 flex justify-center">
-          <div className="w-full max-w-3xl -mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto scrollbar-none">
+          <div
+            ref={tabsScrollRef}
+            className="w-full max-w-3xl -mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto scrollbar-none scroll-smooth"
+          >
             <div className="flex justify-start sm:justify-center gap-1.5 min-w-max sm:min-w-0 sm:flex-wrap bg-white p-1.5 rounded-2xl border border-slate-150 shadow-sm mx-auto w-max max-w-none sm:max-w-full">
               {categories.map((cat) => {
                 const isActive = activeCategory === cat.id;
@@ -192,7 +219,10 @@ export default function ProductCatalog({
                   <button
                     key={cat.id}
                     type="button"
-                    onClick={() => setActiveCategory(cat.id)}
+                    ref={(el) => {
+                      tabBtnRefs.current[cat.id] = el;
+                    }}
+                    onClick={() => selectCategory(cat.id)}
                     className={`relative px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full font-black text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer transition-colors duration-200 outline-none whitespace-nowrap ${
                       isActive ? 'text-white' : 'text-slate-600 hover:text-brand-medium'
                     }`}
