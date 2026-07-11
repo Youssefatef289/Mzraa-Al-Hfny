@@ -34,6 +34,7 @@ interface ProductFormModalProps {
   open: boolean;
   mode: 'create' | 'edit';
   initial?: Product | null;
+  defaultCategory?: Product['category'];
   onClose: () => void;
   onSaved: () => void;
   onError: (message: string) => void;
@@ -88,12 +89,13 @@ export default function ProductFormModal({
   open,
   mode,
   initial,
+  defaultCategory = 'meat',
   onClose,
   onSaved,
   onError,
   onSuccess,
 }: ProductFormModalProps) {
-  const [form, setForm] = useState<ProductFormValues>(emptyForm());
+  const [form, setForm] = useState<ProductFormValues>(emptyForm(defaultCategory));
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -106,11 +108,11 @@ export default function ProductFormModal({
       setForm(productToForm(initial));
       setPreviewUrl(getProductImageUrl(initial.image));
     } else {
-      setForm(emptyForm());
+      setForm(emptyForm(defaultCategory));
       setPreviewUrl(null);
     }
     setImageFile(null);
-  }, [open, mode, initial]);
+  }, [open, mode, initial, defaultCategory]);
 
   useEffect(() => {
     return () => {

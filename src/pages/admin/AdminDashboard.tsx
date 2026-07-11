@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LogOut, Plus, Pencil, Trash2, Search, RefreshCw } from 'lucide-react';
+import { LogOut, Plus, Pencil, Trash2, Search, RefreshCw, Layers } from 'lucide-react';
 import { Product } from '../../types';
 import { rowToProduct, ProductRow } from '../../lib/productMapper';
 import { deleteProductImage } from '../../lib/uploadProductImage';
@@ -8,6 +8,15 @@ import { supabase } from '../../lib/supabaseClient';
 import { getProductImageUrl } from '../../imageUtils';
 import ProductFormModal from './ProductFormModal';
 import { AdminToast, useAdminToast } from './AdminToast';
+
+const CATEGORY_TABS: { id: 'all' | Product['category']; label: string; icon: string }[] = [
+  { id: 'all', label: 'جميع المنتجات', icon: '' },
+  { id: 'meat', label: 'لحوم طازجة', icon: '🥩' },
+  { id: 'processed', label: 'مصنعات لحوم', icon: '🌭' },
+  { id: 'poultry', label: 'دواجن', icon: '🍗' },
+  { id: 'dairy', label: 'ألبان وحلويات', icon: '🍮' },
+  { id: 'cheese', label: 'الجبن', icon: '🧀' },
+];
 
 const CATEGORY_LABELS: Record<Product['category'], string> = {
   meat: 'لحوم',
@@ -60,6 +69,21 @@ export default function AdminDashboard() {
     };
   }, [fetchProducts]);
 
+  const categoryCounts = useMemo(() => {
+    const counts: Record<CategoryFilter, number> = {
+      all: products.length,
+      meat: 0,
+      processed: 0,
+      poultry: 0,
+      dairy: 0,
+      cheese: 0,
+    };
+    for (const product of products) {
+      counts[product.category] += 1;
+    }
+    return counts;
+  }, [products]);
+
   const filtered = useMemo(() => {
     let list = [...products];
     if (category !== 'all') {
@@ -76,6 +100,9 @@ export default function AdminDashboard() {
     }
     return list;
   }, [products, category, search]);
+
+  const activeTabLabel =
+    CATEGORY_TABS.find((tab) => tab.id === category)?.label ?? 'جميع المنتجات';
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -145,30 +172,62 @@ export default function AdminDashboard() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+        {/* Category tabs section */}
+        <section className="mb-6">
+          <div className="flex items-center justify-between gap-3 mb-3">
+            <h2 className="text-sm font-black text-brand-dark">أقسام المنتجات</h2>
+            <span className="text-xs font-bold text-slate-500">
+              عرض: {activeTabLabel} ({filtered.length})
+            </span>
+          </div>
+
+          <div className="bg-white border border-slate-150 rounded-2xl p-2 shadow-sm overflow-x-auto">
+            <div className="flex gap-1.5 min-w-max">
+              {CATEGORY_TABS.map((tab) => {
+                const isActive = category === tab.id;
+                const count = categoryCounts[tab.id];
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setCategory(tab.id)}
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition-all cursor-pointer whitespace-nowrap ${
+                      isActive
+                        ? 'bg-brand-medium text-white shadow-md shadow-brand-medium/20'
+                        : 'bg-slate-50 text-slate-600 hover:bg-sky-50 hover:text-brand-medium'
+                    }`}
+                  >
+                    {tab.id === 'all' ? (
+                      <Layers className="w-4 h-4" />
+                    ) : (
+                      <span className="text-base leading-none">{tab.icon}</span>
+                    )}
+                    <span>{tab.label}</span>
+                    <span
+                      className={`min-w-[1.5rem] h-5 px-1.5 rounded-md text-[10px] font-black flex items-center justify-center ${
+                        isActive ? 'bg-white/20 text-white' : 'bg-white text-slate-500 border border-slate-200'
+                      }`}
+                    >
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
           <div className="relative flex-grow">
             <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               type="text"
-              placeholder="بحث بالاسم أو المعرف..."
+              placeholder={`بحث في ${activeTabLabel}...`}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full pr-10 pl-4 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold outline-none focus:border-brand-medium focus:ring-4 focus:ring-brand-light"
             />
           </div>
-
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value as CategoryFilter)}
-            className="px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold outline-none focus:border-brand-medium cursor-pointer min-w-[140px]"
-          >
-            <option value="all">كل الأقسام</option>
-            {Object.entries(CATEGORY_LABELS).map(([id, label]) => (
-              <option key={id} value={id}>
-                {label}
-              </option>
-            ))}
-          </select>
 
           <button
             type="button"
@@ -196,7 +255,7 @@ export default function AdminDashboard() {
             </div>
           ) : filtered.length === 0 ? (
             <div className="p-12 text-center text-sm text-slate-500 font-bold">
-              لا توجد منتجات مطابقة
+              لا توجد منتجات في «{activeTabLabel}»
             </div>
           ) : (
             <div className="overflow-x-auto">
@@ -280,6 +339,7 @@ export default function AdminDashboard() {
         open={modalOpen}
         mode={modalMode}
         initial={editingProduct}
+        defaultCategory={category === 'all' ? 'meat' : category}
         onClose={() => setModalOpen(false)}
         onSaved={fetchProducts}
         onError={(msg) => showToast(msg, 'error')}
