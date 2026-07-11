@@ -21,6 +21,24 @@ type CategoryFilter = 'all' | 'meat' | 'processed' | 'poultry' | 'dairy' | 'chee
 const LOAD_STEP = 8;
 const HOME_ROW_SIZE = 4;
 
+/** Order used when "الكل" is selected — meat first. */
+const CATEGORY_ORDER: Product['category'][] = [
+  'meat',
+  'processed',
+  'poultry',
+  'dairy',
+  'cheese',
+];
+
+function sortByCategoryOrder(list: Product[]): Product[] {
+  return [...list].sort((a, b) => {
+    const ai = CATEGORY_ORDER.indexOf(a.category);
+    const bi = CATEGORY_ORDER.indexOf(b.category);
+    if (ai !== bi) return ai - bi;
+    return a.id.localeCompare(b.id);
+  });
+}
+
 function ProductSkeleton({ singleRow }: { singleRow: boolean }) {
   const count = singleRow ? HOME_ROW_SIZE : 6;
   return (
@@ -70,7 +88,7 @@ export default function ProductCatalog({
     return CATEGORIES_INFO.find((c) => c.id === activeCategory);
   }, [activeCategory]);
 
-  // Filter logic (no sorting)
+  // Filter + sort (meat first when viewing all)
   const filteredProducts = useMemo(() => {
     let result = [...products];
 
@@ -87,7 +105,7 @@ export default function ProductCatalog({
       );
     }
 
-    return result;
+    return sortByCategoryOrder(result);
   }, [searchQuery, activeCategory, products]);
 
   // Reset visible cards whenever the filter changes (back to a single row).
@@ -126,12 +144,12 @@ export default function ProductCatalog({
   };
 
   const categories = [
-    { id: 'all', name: 'الكل', icon: <Layers className="w-4 h-4" /> },
-    { id: 'meat', name: 'لحوم طازجة', icon: '🥩' },
-    { id: 'processed', name: 'مصنعات لحوم', icon: '🌭' },
-    { id: 'poultry', name: 'دواجن طازجة', icon: '🍗' },
-    { id: 'dairy', name: 'ألبان وحلويات', icon: '🍮' },
-    { id: 'cheese', name: 'الجبن', icon: '🧀' },
+    { id: 'all' as const, name: 'الكل', short: 'الكل', icon: <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> },
+    { id: 'meat' as const, name: 'لحوم طازجة', short: 'لحوم', icon: '🥩' },
+    { id: 'processed' as const, name: 'مصنعات لحوم', short: 'مصنعات', icon: '🌭' },
+    { id: 'poultry' as const, name: 'دواجن طازجة', short: 'دواجن', icon: '🍗' },
+    { id: 'dairy' as const, name: 'ألبان وحلويات', short: 'ألبان', icon: '🍮' },
+    { id: 'cheese' as const, name: 'الجبن', short: 'جبن', icon: '🧀' },
   ];
 
   return (
@@ -149,7 +167,7 @@ export default function ProductCatalog({
         </div>
 
         {/* Search bar */}
-        <div className="max-w-xl mx-auto mb-7">
+        <div className="max-w-xl mx-auto mb-5 sm:mb-7">
           <div className="relative">
             <label htmlFor="search-input" className="sr-only">البحث عن المنتجات</label>
             <input
@@ -164,38 +182,41 @@ export default function ProductCatalog({
           </div>
         </div>
 
-        {/* Category Tabs (animated pill indicator) */}
-        <div className="flex justify-center mb-4">
-          <div className="inline-flex flex-wrap justify-center gap-1.5 bg-white p-1.5 rounded-2xl sm:rounded-full border border-slate-150 shadow-sm">
-            {categories.map((cat) => {
-              const isActive = activeCategory === cat.id;
-              return (
-                <button
-                  key={cat.id}
-                  type="button"
-                  onClick={() => setActiveCategory(cat.id as CategoryFilter)}
-                  className={`relative px-4 sm:px-5 py-2.5 rounded-full font-black text-xs sm:text-sm flex items-center gap-2 cursor-pointer transition-colors duration-200 outline-none ${
-                    isActive ? 'text-white' : 'text-slate-600 hover:text-brand-medium'
-                  }`}
-                >
-                  {isActive && (
-                    <motion.span
-                      layoutId="activeCategoryPill"
-                      className="absolute inset-0 bg-brand-medium rounded-full shadow-md shadow-brand-medium/25"
-                      transition={{ type: 'spring', stiffness: 400, damping: 32 }}
-                    />
-                  )}
-                  <span className="relative z-10 flex items-center gap-2">
-                    {typeof cat.icon === 'string' ? (
-                      <span className="text-base leading-none">{cat.icon}</span>
-                    ) : (
-                      cat.icon
+        {/* Category Tabs — scrollable chips on mobile, centered on desktop */}
+        <div className="mb-4 flex justify-center">
+          <div className="w-full max-w-3xl -mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto scrollbar-none">
+            <div className="flex justify-start sm:justify-center gap-1.5 min-w-max sm:min-w-0 sm:flex-wrap bg-white p-1.5 rounded-2xl border border-slate-150 shadow-sm mx-auto w-max max-w-none sm:max-w-full">
+              {categories.map((cat) => {
+                const isActive = activeCategory === cat.id;
+                return (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => setActiveCategory(cat.id)}
+                    className={`relative px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full font-black text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer transition-colors duration-200 outline-none whitespace-nowrap ${
+                      isActive ? 'text-white' : 'text-slate-600 hover:text-brand-medium'
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="activeCategoryPill"
+                        className="absolute inset-0 bg-brand-medium rounded-full shadow-md shadow-brand-medium/25"
+                        transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                      />
                     )}
-                    <span>{cat.name}</span>
-                  </span>
-                </button>
-              );
-            })}
+                    <span className="relative z-10 flex items-center gap-1.5">
+                      {typeof cat.icon === 'string' ? (
+                        <span className="text-sm sm:text-base leading-none">{cat.icon}</span>
+                      ) : (
+                        cat.icon
+                      )}
+                      <span className="sm:hidden">{cat.short}</span>
+                      <span className="hidden sm:inline">{cat.name}</span>
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
 
