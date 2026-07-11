@@ -204,10 +204,11 @@ export default function ProductFormModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm" dir="rtl">
-      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-slate-150">
-        <div className="sticky top-0 bg-white border-b border-slate-100 px-6 py-4 flex items-center justify-between z-10">
-          <h2 className="text-lg font-black text-brand-dark">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 bg-black/40 backdrop-blur-sm" dir="rtl">
+      <div className="bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl w-full sm:max-w-2xl max-h-[94vh] sm:max-h-[90vh] overflow-y-auto border border-slate-150">
+        <div className="sticky top-0 bg-white/95 backdrop-blur border-b border-slate-100 px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between z-10">
+          <div className="sm:hidden w-10 h-1 rounded-full bg-slate-200 absolute left-1/2 -translate-x-1/2 top-2" />
+          <h2 className="text-base sm:text-lg font-black text-brand-dark">
             {mode === 'edit' ? 'تعديل منتج' : 'إضافة منتج جديد'}
           </h2>
           <button
@@ -220,8 +221,8 @@ export default function ProductFormModal({
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-5">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 sm:space-y-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div className="sm:col-span-2">
               <label className="block text-xs font-extrabold text-slate-600 mb-2">اسم المنتج *</label>
               <input
@@ -257,7 +258,7 @@ export default function ProductFormModal({
             </div>
 
             <div>
-              <label className="block text-xs font-extrabold text-slate-600 mb-2">السعر قبل الخصم (اختياري)</label>
+              <label className="block text-xs font-extrabold text-slate-600 mb-2">قبل الخصم</label>
               <input
                 type="number"
                 min={0}
@@ -305,7 +306,7 @@ export default function ProductFormModal({
             </div>
 
             <div>
-              <label className="block text-xs font-extrabold text-slate-600 mb-2">Tag (اختياري)</label>
+              <label className="block text-xs font-extrabold text-slate-600 mb-2">وسم (اختياري)</label>
               <input
                 value={form.tag ?? ''}
                 onChange={(e) => setForm({ ...form, tag: e.target.value })}
@@ -314,7 +315,7 @@ export default function ProductFormModal({
               />
             </div>
 
-            <div className="flex items-center gap-3 pt-6">
+            <div className="flex items-center gap-3 pt-2 sm:pt-6">
               <button
                 type="button"
                 role="switch"
@@ -346,7 +347,7 @@ export default function ProductFormModal({
               onDragLeave={() => setDragOver(false)}
               onDrop={onDrop}
               onClick={() => fileInputRef.current?.click()}
-              className={`border-2 border-dashed rounded-2xl p-6 text-center cursor-pointer transition-colors ${
+              className={`border-2 border-dashed rounded-2xl p-4 sm:p-6 text-center cursor-pointer transition-colors ${
                 dragOver ? 'border-brand-medium bg-brand-light' : 'border-slate-200 hover:border-brand-medium/50'
               }`}
             >
@@ -361,21 +362,21 @@ export default function ProductFormModal({
                 <img
                   src={previewUrl}
                   alt="معاينة"
-                  className="w-32 h-32 object-cover rounded-xl mx-auto mb-3 border border-slate-100"
+                  className="w-24 h-24 sm:w-32 sm:h-32 object-cover rounded-xl mx-auto mb-3 border border-slate-100"
                 />
               ) : (
-                <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto mb-3">
-                  <ImageIcon className="w-8 h-8 text-slate-400" />
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto mb-3">
+                  <ImageIcon className="w-7 h-7 sm:w-8 sm:h-8 text-slate-400" />
                 </div>
               )}
-              <p className="text-sm font-bold text-slate-600 flex items-center justify-center gap-2">
+              <p className="text-xs sm:text-sm font-bold text-slate-600 flex items-center justify-center gap-2">
                 <Upload className="w-4 h-4" />
-                اسحب صورة هنا أو اضغط للاختيار
+                اضغط لاختيار صورة
               </p>
             </div>
           </div>
 
-          <div className="flex gap-3 pt-2">
+          <div className="flex gap-2 sm:gap-3 pt-1 sticky bottom-0 bg-white pb-1">
             <button
               type="submit"
               disabled={saving}
@@ -386,7 +387,7 @@ export default function ProductFormModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-6 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-extrabold rounded-xl transition-colors cursor-pointer"
+              className="px-5 sm:px-6 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-extrabold rounded-xl transition-colors cursor-pointer"
             >
               إلغاء
             </button>
