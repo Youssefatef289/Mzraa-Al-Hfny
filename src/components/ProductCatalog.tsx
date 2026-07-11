@@ -27,17 +27,17 @@ function ProductSkeleton({ singleRow }: { singleRow: boolean }) {
     <div
       className={
         singleRow
-          ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10'
-          : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10'
+          ? 'grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-5 lg:gap-8'
+          : 'grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-5 lg:gap-8'
       }
     >
       {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className="bg-white rounded-3xl border border-slate-100 overflow-hidden animate-pulse">
-          <div className="aspect-[4/3] bg-slate-200" />
-          <div className="p-5 space-y-3">
-            <div className="h-4 bg-slate-200 rounded w-3/4 mr-auto" />
-            <div className="h-3 bg-slate-100 rounded w-full" />
-            <div className="h-8 bg-slate-200 rounded-xl w-1/2 mr-auto mt-4" />
+        <div key={i} className="bg-white rounded-2xl border border-slate-100 overflow-hidden animate-pulse">
+          <div className="aspect-square bg-slate-200" />
+          <div className="p-2.5 sm:p-4 space-y-2">
+            <div className="h-3 bg-slate-200 rounded w-3/4 mr-auto" />
+            <div className="h-3 bg-slate-100 rounded w-1/2 mr-auto" />
+            <div className="h-7 bg-slate-200 rounded-lg w-full mt-2" />
           </div>
         </div>
       ))}
@@ -247,8 +247,8 @@ export default function ProductCatalog({
                 transition={{ layout: layoutSpring }}
                 className={
                   singleRow
-                    ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10'
-                    : 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10'
+                    ? 'grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-5 lg:gap-8'
+                    : 'grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-5 lg:gap-8'
                 }
               >
                 <AnimatePresence mode="popLayout" initial={false}>
