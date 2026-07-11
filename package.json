@@ -12,7 +12,8 @@
     "optimize:meat": "node scripts/optimize-meat-images.mjs",
     "migrate:products": "tsx scripts/migrate-products-to-supabase.mjs",
     "setup:supabase": "tsx scripts/complete-supabase-setup.mjs",
-    "setup:admin": "tsx scripts/update-admin-user.mjs"
+    "setup:admin": "tsx scripts/update-admin-user.mjs",
+    "setup:storage": "tsx scripts/setup-storage-policies.mjs"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

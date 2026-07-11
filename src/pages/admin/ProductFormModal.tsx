@@ -70,9 +70,18 @@ function productToForm(product: Product): ProductFormValues {
   };
 }
 
-function slugId(category: Product['category'], name: string): string {
-  const base = name.trim().replace(/\s+/g, '-').slice(0, 24) || 'product';
-  return `${category}-${base}-${Date.now().toString(36)}`;
+/** ASCII-only product id (Arabic names break Supabase Storage keys). */
+function slugId(category: Product['category']): string {
+  const rand = Math.random().toString(36).slice(2, 8);
+  return `${category}-${Date.now().toString(36)}-${rand}`;
+}
+
+function getErrorMessage(err: unknown): string {
+  if (err instanceof Error) return err.message;
+  if (err && typeof err === 'object' && 'message' in err) {
+    return String((err as { message: unknown }).message);
+  }
+  return 'حدث خطأ أثناء الحفظ';
 }
 
 export default function ProductFormModal({
@@ -140,7 +149,7 @@ export default function ProductFormModal({
     setSaving(true);
 
     try {
-      const productId = mode === 'edit' ? form.id : slugId(form.category, form.name);
+      const productId = mode === 'edit' ? form.id : slugId(form.category);
       let imageUrl = form.image;
 
       if (imageFile) {
@@ -173,19 +182,18 @@ export default function ProductFormModal({
 
       if (mode === 'edit') {
         const { error } = await supabase.from('products').update(row).eq('id', productId);
-        if (error) throw error;
+        if (error) throw new Error(error.message);
         onSuccess('تم تحديث المنتج بنجاح');
       } else {
         const { error } = await supabase.from('products').insert(row);
-        if (error) throw error;
+        if (error) throw new Error(error.message);
         onSuccess('تم إضافة المنتج بنجاح');
       }
 
       onSaved();
       onClose();
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'حدث خطأ أثناء الحفظ';
-      onError(message);
+      onError(getErrorMessage(err));
     } finally {
       setSaving(false);
     }

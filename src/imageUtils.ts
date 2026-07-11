@@ -1,6 +1,11 @@
-/** Web-optimized product image URL (local meat uses WebP; Supabase URLs pass through). */
+/** Web-optimized product image URL (local meat uses WebP; remote/data URLs pass through). */
 export function getProductImageUrl(image: string): string {
-  if (image.startsWith('http://') || image.startsWith('https://')) {
+  if (
+    image.startsWith('http://') ||
+    image.startsWith('https://') ||
+    image.startsWith('data:') ||
+    image.startsWith('blob:')
+  ) {
     return image;
   }
 
