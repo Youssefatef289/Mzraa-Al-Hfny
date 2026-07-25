@@ -9,13 +9,16 @@ import { getProductImageUrl } from '../../imageUtils';
 import ProductFormModal from './ProductFormModal';
 import { AdminToast, useAdminToast } from './AdminToast';
 
+type CategoryFilter = 'all' | 'offers' | Product['category'];
+
 const CATEGORY_TABS: {
-  id: 'all' | Product['category'];
+  id: CategoryFilter;
   label: string;
   short: string;
   icon: string;
 }[] = [
   { id: 'all', label: 'الكل', short: 'الكل', icon: '' },
+  { id: 'offers', label: 'العروض', short: 'العروض', icon: '🔥' },
   { id: 'meat', label: 'لحوم', short: 'لحوم', icon: '🥩' },
   { id: 'processed', label: 'مصنعات', short: 'مصنعات', icon: '🌭' },
   { id: 'poultry', label: 'دواجن', short: 'دواجن', icon: '🍗' },
@@ -31,8 +34,6 @@ const CATEGORY_LABELS: Record<Product['category'], string> = {
   cheese: 'جبن',
 };
 
-type CategoryFilter = 'all' | Product['category'];
-
 export default function AdminDashboard() {
   const navigate = useNavigate();
   const { toast, showToast } = useAdminToast();
@@ -43,6 +44,8 @@ export default function AdminDashboard() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [defaultModalTag, setDefaultModalTag] = useState<string | undefined>(undefined);
+  const [defaultModalUnit, setDefaultModalUnit] = useState<string | undefined>(undefined);
 
   const fetchProducts = useCallback(async () => {
     setLoading(true);
@@ -77,6 +80,7 @@ export default function AdminDashboard() {
   const categoryCounts = useMemo(() => {
     const counts: Record<CategoryFilter, number> = {
       all: products.length,
+      offers: 0,
       meat: 0,
       processed: 0,
       poultry: 0,
@@ -84,6 +88,9 @@ export default function AdminDashboard() {
       cheese: 0,
     };
     for (const product of products) {
+      if (product.tag === 'عرض' || (product.originalPrice && product.originalPrice > product.price)) {
+        counts.offers += 1;
+      }
       counts[product.category] += 1;
     }
     return counts;
@@ -91,7 +98,9 @@ export default function AdminDashboard() {
 
   const filtered = useMemo(() => {
     let list = [...products];
-    if (category !== 'all') {
+    if (category === 'offers') {
+      list = list.filter((p) => p.tag === 'عرض' || (p.originalPrice && p.originalPrice > p.price));
+    } else if (category !== 'all') {
       list = list.filter((p) => p.category === category);
     }
     if (search.trim()) {
@@ -114,15 +123,29 @@ export default function AdminDashboard() {
     navigate('/admin/login', { replace: true });
   };
 
-  const openCreate = () => {
+  const openCreate = (tag?: string, unit?: string) => {
     setModalMode('create');
     setEditingProduct(null);
+    setDefaultModalTag(tag);
+    setDefaultModalUnit(unit);
     setModalOpen(true);
   };
+
+  const openCreateOffer = () => openCreate('عرض', 'العرض');
 
   const openEdit = (product: Product) => {
     setModalMode('edit');
     setEditingProduct(product);
+    setDefaultModalTag(undefined);
+    setDefaultModalUnit(undefined);
+    setModalOpen(true);
+  };
+
+  const openEditAsOffer = (product: Product) => {
+    setModalMode('edit');
+    setEditingProduct({ ...product, tag: 'عرض' });
+    setDefaultModalTag(undefined);
+    setDefaultModalUnit(undefined);
     setModalOpen(true);
   };
 
@@ -199,6 +222,41 @@ export default function AdminDashboard() {
             className="w-full pr-10 pl-4 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-bold outline-none focus:border-brand-medium focus:ring-4 focus:ring-brand-light shadow-sm"
           />
         </div>
+
+        {/* Offer section */}
+        <section className="mb-4">
+          <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-slate-400">
+                  إدارة العروض
+                </p>
+                <h2 className="mt-1 text-base font-black text-brand-dark">
+                  أضف عرضًا جديدًا بسرعة
+                </h2>
+                <p className="text-xs text-slate-500 mt-1">
+                  عرض المنتجات مع خصم، علامة «عرض»، وسعر قبل الخصم.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={openCreateOffer}
+                  className="px-4 py-3 bg-red-500 hover:bg-red-600 text-white rounded-2xl text-sm font-extrabold transition-colors"
+                >
+                  إضافة عرض
+                </button>
+                <button
+                  type="button"
+                  onClick={() => openCreate()}
+                  className="px-4 py-3 bg-brand-medium hover:bg-brand-hover text-white rounded-2xl text-sm font-extrabold transition-colors"
+                >
+                  إضافة منتج
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Category chips */}
         <section className="mb-4">
@@ -323,6 +381,13 @@ export default function AdminDashboard() {
                       <div className="flex items-center gap-1.5">
                         <button
                           type="button"
+                          onClick={() => openEditAsOffer(product)}
+                          className="text-[11px] font-extrabold px-2.5 py-1.5 rounded-lg bg-rose-50 text-red-600 hover:bg-rose-100 cursor-pointer"
+                        >
+                          عرض
+                        </button>
+                        <button
+                          type="button"
                           onClick={() => openEdit(product)}
                           className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-sky-50 text-brand-medium text-[11px] font-extrabold cursor-pointer"
                         >
@@ -398,6 +463,13 @@ export default function AdminDashboard() {
                           <div className="flex items-center gap-2">
                             <button
                               type="button"
+                              onClick={() => openEditAsOffer(product)}
+                              className="px-3 py-2 rounded-lg bg-rose-50 text-red-600 hover:bg-rose-100 text-xs font-extrabold cursor-pointer"
+                            >
+                              عرض
+                            </button>
+                            <button
+                              type="button"
                               onClick={() => openEdit(product)}
                               className="p-2 rounded-lg bg-sky-50 text-brand-medium hover:bg-sky-100 cursor-pointer"
                               aria-label="تعديل"
@@ -439,7 +511,13 @@ export default function AdminDashboard() {
         mode={modalMode}
         initial={editingProduct}
         defaultCategory={category === 'all' ? 'meat' : category}
-        onClose={() => setModalOpen(false)}
+        defaultTag={defaultModalTag}
+        defaultUnit={defaultModalUnit}
+        onClose={() => {
+          setModalOpen(false);
+          setDefaultModalTag(undefined);
+          setDefaultModalUnit(undefined);
+        }}
         onSaved={fetchProducts}
         onError={(msg) => showToast(msg, 'error')}
         onSuccess={(msg) => showToast(msg, 'success')}

@@ -16,7 +16,7 @@ interface ProductCatalogProps {
   singleRow?: boolean;
 }
 
-type CategoryFilter = 'all' | 'meat' | 'processed' | 'poultry' | 'dairy' | 'cheese';
+type CategoryFilter = 'all' | 'offers' | 'meat' | 'processed' | 'poultry' | 'dairy' | 'cheese';
 
 const LOAD_STEP = 8;
 const HOME_ROW_SIZE = 4;
@@ -106,6 +106,10 @@ export default function ProductCatalog({
     setActiveCategory(id);
   };
 
+  const isOfferProduct = (product: Product) =>
+    product.tag?.toLowerCase().includes('عرض') ||
+    (!!product.originalPrice && product.originalPrice > product.price);
+
   // Find info about active category
   const activeCategoryInfo = useMemo(() => {
     if (activeCategory === 'all') return null;
@@ -116,7 +120,9 @@ export default function ProductCatalog({
   const filteredProducts = useMemo(() => {
     let result = [...products];
 
-    if (activeCategory !== 'all') {
+    if (activeCategory === 'offers') {
+      result = result.filter(isOfferProduct);
+    } else if (activeCategory !== 'all') {
       result = result.filter((p) => p.category === activeCategory);
     }
 
@@ -169,6 +175,7 @@ export default function ProductCatalog({
 
   const categories = [
     { id: 'all' as const, name: 'الكل', short: 'الكل', icon: <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> },
+    { id: 'offers' as const, name: 'العروض الخاصة', short: 'عروض', icon: '🔥' },
     { id: 'meat' as const, name: 'لحوم طازجة', short: 'لحوم', icon: '🥩' },
     { id: 'processed' as const, name: 'مصنعات لحوم', short: 'مصنعات', icon: '🌭' },
     { id: 'poultry' as const, name: 'دواجن طازجة', short: 'دواجن', icon: '🍗' },

@@ -35,6 +35,8 @@ interface ProductFormModalProps {
   mode: 'create' | 'edit';
   initial?: Product | null;
   defaultCategory?: Product['category'];
+  defaultTag?: string;
+  defaultUnit?: string;
   onClose: () => void;
   onSaved: () => void;
   onError: (message: string) => void;
@@ -90,6 +92,8 @@ export default function ProductFormModal({
   mode,
   initial,
   defaultCategory = 'meat',
+  defaultTag,
+  defaultUnit,
   onClose,
   onSaved,
   onError,
@@ -100,6 +104,7 @@ export default function ProductFormModal({
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [dragOver, setDragOver] = useState(false);
+  const [isOffer, setIsOffer] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -107,12 +112,18 @@ export default function ProductFormModal({
     if (mode === 'edit' && initial) {
       setForm(productToForm(initial));
       setPreviewUrl(getProductImageUrl(initial.image));
+      setIsOffer(initial.tag === 'عرض' || !!initial.originalPrice);
     } else {
-      setForm(emptyForm(defaultCategory));
+      setForm({
+        ...emptyForm(defaultCategory),
+        tag: defaultTag ?? '',
+        unit: defaultUnit ?? 'كيلو جرام',
+      });
       setPreviewUrl(null);
+      setIsOffer(defaultTag === 'عرض');
     }
     setImageFile(null);
-  }, [open, mode, initial, defaultCategory]);
+  }, [open, mode, initial, defaultCategory, defaultTag]);
 
   useEffect(() => {
     return () => {
@@ -131,6 +142,23 @@ export default function ProductFormModal({
     e.preventDefault();
     setDragOver(false);
     handleFile(e.dataTransfer.files[0] ?? null);
+  };
+
+  const handleToggleOffer = () => {
+    const nextVal = !isOffer;
+    setIsOffer(nextVal);
+    if (nextVal) {
+      setForm((prev) => ({
+        ...prev,
+        tag: prev.tag?.trim() ? prev.tag : 'عرض',
+      }));
+    } else {
+      setForm((prev) => ({
+        ...prev,
+        tag: prev.tag === 'عرض' ? '' : prev.tag,
+        originalPrice: undefined,
+      }));
+    }
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -158,6 +186,10 @@ export default function ProductFormModal({
         imageUrl = await uploadProductImage(imageFile, productId, form.category);
       }
 
+      const finalTag = isOffer
+        ? (form.tag?.trim() ? form.tag.trim() : 'عرض')
+        : (form.tag?.trim() === 'عرض' ? '' : form.tag?.trim());
+
       const product: Product = {
         id: productId,
         name: form.name.trim(),
@@ -168,8 +200,8 @@ export default function ProductFormModal({
         category: form.category,
         rating: form.rating,
         isAvailable: form.isAvailable,
-        ...(form.tag?.trim() ? { tag: form.tag.trim() } : {}),
-        ...(form.originalPrice && form.originalPrice > 0
+        ...(finalTag ? { tag: finalTag } : {}),
+        ...(isOffer && form.originalPrice && form.originalPrice > 0
           ? { originalPrice: form.originalPrice }
           : {}),
         ...(form.minQuantity != null && form.minQuantity > 0
@@ -264,12 +296,17 @@ export default function ProductFormModal({
                 min={0}
                 step={1}
                 value={form.originalPrice ?? ''}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    originalPrice: e.target.value ? Number(e.target.value) : undefined,
-                  })
-                }
+                onChange={(e) => {
+                  const val = e.target.value ? Number(e.target.value) : undefined;
+                  setForm((prev) => ({
+                    ...prev,
+                    originalPrice: val,
+                    ...(val && val > 0 ? { tag: prev.tag?.trim() ? prev.tag : 'عرض' } : {}),
+                  }));
+                  if (val && val > 0) {
+                    setIsOffer(true);
+                  }
+                }}
                 className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold outline-none focus:border-brand-medium focus:ring-4 focus:ring-brand-light"
                 dir="ltr"
               />
@@ -333,6 +370,27 @@ export default function ProductFormModal({
               </button>
               <span className="text-sm font-bold text-slate-700">
                 {form.isAvailable ? 'متوفر' : 'غير متوفر'}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-3 pt-2 sm:pt-6">
+              <button
+                type="button"
+                role="switch"
+                aria-checked={isOffer}
+                onClick={handleToggleOffer}
+                className={`relative w-12 h-7 rounded-full transition-colors cursor-pointer ${
+                  isOffer ? 'bg-red-500' : 'bg-slate-300'
+                }`}
+              >
+                <span
+                  className={`absolute top-1 w-5 h-5 bg-white rounded-full shadow transition-transform ${
+                    isOffer ? 'right-1' : 'right-6'
+                  }`}
+                />
+              </button>
+              <span className="text-sm font-bold text-slate-700">
+                {isOffer ? 'تفعيل كعرض خاص' : 'منتج بدون عرض'}
               </span>
             </div>
           </div>
