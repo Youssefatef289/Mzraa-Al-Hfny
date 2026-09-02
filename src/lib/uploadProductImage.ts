@@ -57,7 +57,7 @@ async function uploadViaApi(
   file: File,
   productId: string,
   category: string
-): Promise<string | null> {
+): Promise<{ publicUrl: string } | null> {
   const { data: sessionData } = await supabase.auth.getSession();
   const token = sessionData.session?.access_token;
   if (!token) return null;
@@ -80,10 +80,23 @@ async function uploadViaApi(
       }),
     });
 
-    if (!res.ok) return null;
-    const payload = (await res.json()) as { publicUrl?: string };
-    return payload.publicUrl ?? null;
-  } catch {
+    let serverMessage = '';
+    try {
+      const payload = (await res.json()) as { error?: string; publicUrl?: string };
+      serverMessage = payload.error ?? '';
+      if (res.ok && payload.publicUrl) return { publicUrl: payload.publicUrl };
+    } catch {
+      serverMessage = '';
+    }
+
+    // Surface the real reason so admins can diagnose the 500/400 instead of a silent fallback.
+    console.warn(
+      `Upload API failed (${res.status}).${serverMessage ? ` Server said: "${serverMessage}"` : ''}`,
+      { res }
+    );
+    return null;
+  } catch (err) {
+    console.warn('Upload API request threw:', err);
     return null;
   }
 }
@@ -108,7 +121,7 @@ export async function uploadProductImage(
 
   // 2) Production fallback: Vercel API route using secret key (bypasses Storage RLS)
   const viaApi = await uploadViaApi(file, productId, category);
-  if (viaApi) return viaApi;
+  if (viaApi) return viaApi.publicUrl;
 
   // 3) Local/dev fallback: compressed data URL so admin can still add products
   const isRlsBlocked =
@@ -116,7 +129,9 @@ export async function uploadProductImage(
     uploadError.message.toLowerCase().includes('policy');
 
   if (isRlsBlocked) {
-    console.warn('Storage RLS blocked upload; using data URL fallback.');
+    console.warn(
+      'Storage RLS blocked upload and the /api/upload-product-image fallback failed; using data URL fallback.'
+    );
     const { dataUrl } = await fileToCompressedBlob(file);
     return dataUrl;
   }

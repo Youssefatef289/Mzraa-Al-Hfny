@@ -3,6 +3,21 @@ import { createClient } from '@supabase/supabase-js';
 
 const BUCKET = 'product-images';
 
+/** Returns the list of Supabase env var names that are missing on the server. */
+function missingServerEnvVars(): string[] {
+  const missing: string[] = [];
+  if (!(process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL)) {
+    missing.push('VITE_SUPABASE_URL / SUPABASE_URL');
+  }
+  if (!(process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY)) {
+    missing.push('VITE_SUPABASE_ANON_KEY / SUPABASE_ANON_KEY');
+  }
+  if (!(process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY)) {
+    missing.push('SUPABASE_SECRET_KEY / SUPABASE_SERVICE_ROLE_KEY');
+  }
+  return missing;
+}
+
 function sanitizeExt(fileName: string, mimeType: string): string {
   const fromName = fileName.split('.').pop()?.toLowerCase() ?? '';
   if (/^[a-z0-9]{2,5}$/.test(fromName) && fromName !== 'jpeg') return fromName;
@@ -22,8 +37,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const anonKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
     const secretKey = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-    if (!supabaseUrl || !anonKey || !secretKey) {
-      return res.status(500).json({ error: 'Supabase server env vars are missing on Vercel' });
+    const missingEnv = missingServerEnvVars();
+    if (missingEnv.length > 0) {
+      return res.status(500).json({
+        error:
+          `Missing Supabase server env var(s) on Vercel: ${missingEnv.join(', ')}. ` +
+          'Add them under Vercel → Project → Settings → Environment Variables, then redeploy.',
+        missing: missingEnv,
+      });
     }
 
     const authHeader = req.headers.authorization || '';
@@ -71,7 +92,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
 
     if (uploadError) {
-      return res.status(500).json({ error: uploadError.message });
+      return res.status(500).json({
+        error: `Storage upload failed (${uploadError.statusCode ?? 'unknown status'}): ${uploadError.message}`,
+        hint: 'Verify the "product-images" bucket exists and the storage policies in supabase/storage-policies.sql are applied.',
+      });
     }
 
     const { data } = admin.storage.from(BUCKET).getPublicUrl(storagePath);

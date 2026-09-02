@@ -1,3 +1,4 @@
+
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LogOut, Plus, Pencil, Trash2, Search, RefreshCw, Layers } from 'lucide-react';
@@ -303,7 +304,7 @@ export default function AdminDashboard() {
         <div className="hidden md:flex justify-end mb-4">
           <button
             type="button"
-            onClick={openCreate}
+            onClick={() => openCreate()}
             className="flex items-center gap-2 px-5 py-3 bg-brand-medium hover:bg-brand-hover text-white rounded-xl text-sm font-extrabold cursor-pointer"
           >
             <Plus className="w-4 h-4" />
@@ -331,7 +332,7 @@ export default function AdminDashboard() {
             <p className="text-xs text-slate-400 font-bold mb-5">في قسم «{activeTabLabel}»</p>
             <button
               type="button"
-              onClick={openCreate}
+              onClick={() => openCreate()}
               className="inline-flex items-center gap-2 bg-brand-medium text-white text-xs font-extrabold px-4 py-2.5 rounded-xl cursor-pointer"
             >
               <Plus className="w-4 h-4" />
@@ -499,7 +500,7 @@ export default function AdminDashboard() {
       {/* Mobile FAB */}
       <button
         type="button"
-        onClick={openCreate}
+        onClick={() => openCreate()}
         className="md:hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 bg-brand-medium hover:bg-brand-hover text-white font-extrabold text-sm px-5 py-3.5 rounded-full shadow-xl shadow-brand-medium/30 cursor-pointer"
       >
         <Plus className="w-5 h-5" />
