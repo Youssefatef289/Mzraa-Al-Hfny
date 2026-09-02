@@ -72,14 +72,24 @@ export default function ProductCard({
             </span>
           </div>
         )}
-        {product.tag && product.isAvailable && (
-          <span
-            className={`absolute top-1.5 right-1.5 sm:top-3 sm:right-3 text-white text-[9px] sm:text-[11px] font-extrabold py-0.5 px-1.5 sm:py-1 sm:px-2.5 rounded-full shadow-sm ${
-              product.tag === 'عرض' ? 'bg-red-500' : 'bg-brand-medium'
-            }`}
-          >
+        {/* Render standard tag only if it's NOT an offer tag */}
+        {product.tag && product.tag !== 'عرض' && product.isAvailable && (
+          <span className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10 text-white text-[9px] sm:text-[11px] font-black py-1 px-2.5 sm:px-3.5 rounded-lg shadow-sm bg-brand-medium border border-brand-hover/30">
             {product.tag}
           </span>
+        )}
+
+        {/* Offer corner ribbon */}
+        {product.isAvailable && (product.tag === 'عرض' || (product.originalPrice && product.originalPrice > product.price)) && (
+          <div className="absolute top-0 right-0 overflow-hidden w-16 h-16 sm:w-20 sm:h-20 z-10 pointer-events-none">
+            <div className="absolute transform rotate-45 bg-gradient-to-r from-red-500 to-rose-600 text-white text-[8px] sm:text-[10px] font-black text-center py-1 w-24 sm:w-28 -right-6 sm:-right-7 top-2.5 sm:top-3.5 shadow-md border-b border-white/10 select-none">
+              {product.originalPrice && product.originalPrice > product.price ? (
+                `خصم ${Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%`
+              ) : (
+                'عرض خاص'
+              )}
+            </div>
+          </div>
         )}
         {product.isAvailable && (
           <div className="absolute bottom-1.5 left-1.5 sm:bottom-3 sm:left-3 bg-white/95 backdrop-blur-sm px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-md sm:rounded-lg flex items-center gap-0.5 shadow-sm">
@@ -108,13 +118,18 @@ export default function ProductCard({
                 {isCheese ? lineTotal : product.price}{' '}
                 <span className="text-[9px] sm:text-xs font-bold text-slate-500">ج.م</span>
               </span>
-              {product.originalPrice && (
-                <span className="text-[10px] sm:text-sm font-bold text-slate-400 line-through">
-                  {isCheese
-                    ? Math.round(product.originalPrice * activeQty * 100) / 100
-                    : product.originalPrice}{' '}
-                  ج.م
-                </span>
+              {product.originalPrice && product.originalPrice > product.price && (
+                <div className="flex items-center gap-1.5 mt-0.5">
+                  <span className="text-[10px] sm:text-sm font-bold text-slate-400 line-through">
+                    {isCheese
+                      ? Math.round(product.originalPrice * activeQty * 100) / 100
+                      : product.originalPrice}{' '}
+                    ج.م
+                  </span>
+                  <span className="text-[8px] sm:text-[10px] font-extrabold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100/70">
+                    وفر {Math.round((isCheese ? product.originalPrice * activeQty - product.price * activeQty : product.originalPrice - product.price) * 100) / 100} ج.م
+                  </span>
+                </div>
               )}
             </div>
             {quantityInCart > 0 && (

@@ -510,7 +510,7 @@ export default function AdminDashboard() {
         open={modalOpen}
         mode={modalMode}
         initial={editingProduct}
-        defaultCategory={category === 'all' ? 'meat' : category}
+        defaultCategory={category === 'all' || category === 'offers' ? 'meat' : category}
         defaultTag={defaultModalTag}
         defaultUnit={defaultModalUnit}
         onClose={() => {
